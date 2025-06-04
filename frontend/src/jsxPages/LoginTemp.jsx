@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUserContext }from '../pages/UserContext';
-import fetchData from '../service/FechData';
+import { useUserContext }from './UserContext';
+import fetchData from '../service/FetchData';
 
 const Login=()=> {
   const [username, setUsername] = useState('');
@@ -13,11 +13,13 @@ const Login=()=> {
   e.preventDefault(); 
   try{
     const user = await fetchData('users','POST',{username,password});
+    console.log(user);
    if (user.length!=0) {
-    localStorage.setItem("currentUser",JSON.stringify( { id:user[0].id}));
-    setCurrentUser(user[0]);
+    localStorage.setItem("currentUser",JSON.stringify(user.id));
+    setCurrentUser(user);
     const idUser = JSON.parse(localStorage.getItem('currentUser'));
-    navigate(`/users/${idUser.id}/home`);
+    console.log("id"+idUser);
+    navigate(`/users/${idUser}/home`);
   } 
   else {
     alert('שם משתמש או סיסמה שגויים');
@@ -32,6 +34,9 @@ catch (error) {
     <div>
       <h1>Login</h1> 
       <form onSubmit={btnLogin}>
+      <label>alicec</label>
+      <br/>
+      <label>hashed_pw1</label>
       <input type="text" placeholder="Username" value={username} required 
               onChange={(e) => setUsername(e.target.value)}/>
       <br/>
