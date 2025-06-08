@@ -177,7 +177,12 @@ INSERT INTO reviews (user_id, package_id, rating, comment, created_at) VALUES
 
 select *
 from users;
+
 SELECT * FROM users WHERE id=7;
+
+SELECT * 
+FROM users
+WHERE user_name = 'alicec' AND  password = 'hashed_pw1';
 
 
 

@@ -16,6 +16,7 @@ const Home = () => {
          <>
             <h2>hi {currentUser.name}</h2>
                 <button onClick={btnLogout}>Logout</button>
+                
                 <Outlet />   
          </>);}
 export default Home
