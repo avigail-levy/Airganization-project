@@ -19,7 +19,10 @@ const VacationPackages = () => {
         <>
             <h1>חבילות נופש</h1>
             {vacationPackages.map((vacationPackage,index) => (
-                 <div key={index}>{vacationPackage.name}</div>
+                <>
+                 <div key={index+1}>{vacationPackage.name}</div>
+                 <button onClick={() => navigate(`${vacationPackage.id}/trips`)}>טיול נופש {vacationPackage.id}</button>
+                </>
             ))}
             </>
     )
