@@ -32,7 +32,6 @@ CREATE TABLE vacation_packages (
   FOREIGN KEY (destination_id) REFERENCES destinations(id)
 );
 
-
 CREATE TABLE trips (
   id INT AUTO_INCREMENT PRIMARY KEY,
   trip_track TEXT NOT NULL,
@@ -42,7 +41,6 @@ CREATE TABLE trips (
   trip_date DATE NOT NULL,
   FOREIGN KEY (package_id) REFERENCES vacation_packages(id)
 );
-
 
 CREATE TABLE continents (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -56,7 +54,6 @@ CREATE TABLE destinations (
   FOREIGN KEY (continent_id) REFERENCES continents(id)
 );
 
-
 CREATE TABLE pictures (
   id INT AUTO_INCREMENT PRIMARY KEY,
   package_id INT NOT NULL,
@@ -65,7 +62,6 @@ CREATE TABLE pictures (
   sort_order INT NOT NULL,
   FOREIGN KEY (package_id) REFERENCES vacation_packages(id)
 );
-
 
 CREATE TABLE discount_codes (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -173,7 +169,6 @@ INSERT INTO reviews (user_id, package_id, rating, comment, created_at) VALUES
 (3, 1, 5, 'Amazing trip to Paris!', '2025-07-15'),
 (3, 2, 4, 'Nice experience but a bit hot.', '2025-08-30'),
 (3, 3, 5, 'Loved NYC!', '2025-09-20');
-
 
 select *
 from users;
