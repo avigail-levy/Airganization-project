@@ -1,9 +1,9 @@
 import tripsMod from '../models/tripsMod.js';
 
 export async function getTripsByIdVacation(req, res) {
-    const package_id = req.params.id;
+    const vacation_id = req.params.vacationId;
   try {
-    const trips = await tripsMod.getTripsByIdVacation(package_id);
+    const trips = await tripsMod.getTripsByIdVacation(vacation_id);
     if (!trips) return res.status(404).json({ message: 'trips not found' });
     res.json(trips);
   }

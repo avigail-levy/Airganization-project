@@ -2,11 +2,12 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import App from "../App.jsx";
 import  { UserProvider } from "./UserContext";
 import Home from './HomePage/Home.jsx';
-import Login from "./LoginTemp.jsx";
+import Login from "./Login.jsx";
 import Users from './Users.jsx';
 import Orders from './Orders.jsx';
 import VacationPackages from './VacationPackages.jsx';
 import Profile from './Profile.jsx';
+import Trips from './Trips.jsx';
 const router = createBrowserRouter([
     {
         path: '/',
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
           { path: 'admin/orders', element: <Orders /> },
           { path: 'vacationPackages', element: <VacationPackages/>,
             children: [
-             { path:':id/trips', element:<Trips/>} 
+             { path:':vacationId/trips', element:<Trips/>} 
             ]
           },
           { path: 'profile', element:<Profile/>}

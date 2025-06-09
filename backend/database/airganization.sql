@@ -140,6 +140,9 @@ INSERT INTO trips (trip_track, package_id, exit_time, return_time, trip_date) VA
 ('Grand Palace, Floating Market', 2, '2025-08-16 10:00:00', '2025-08-16 18:00:00', '2025-08-16'),
 ('Statue of Liberty, Times Square', 3, '2025-09-06 11:00:00', '2025-09-06 19:00:00', '2025-09-06');
 
+INSERT INTO trips (trip_track, package_id, exit_time, return_time, trip_date) VALUES
+('Eiffel Tower, Louvre', 7, '2025-07-02 09:00:00', '2025-07-02 17:00:00', '2025-07-02');
+
 -- 6. Pictures
 INSERT INTO pictures (package_id, alt_text, image_url, sort_order) VALUES
 (1, 'Eiffel Tower', 'https://example.com/eiffel.jpg', 1),
@@ -173,7 +176,13 @@ INSERT INTO reviews (user_id, package_id, rating, comment, created_at) VALUES
 select *
 from vacation_packages;
 
+select *
+from trips;
+
 SELECT * FROM users WHERE id=7;
+
+SELECT * FROM trips
+where package_id = 7;
 
 SELECT * 
 FROM users
