@@ -143,6 +143,10 @@ INSERT INTO trips (trip_track, package_id, exit_time, return_time, trip_date) VA
 INSERT INTO trips (trip_track, package_id, exit_time, return_time, trip_date) VALUES
 ('Eiffel Tower, Louvre', 7, '2025-07-02 09:00:00', '2025-07-02 17:00:00', '2025-07-02');
 
+INSERT INTO trips (trip_track, package_id, exit_time, return_time, trip_date) VALUES
+('Avigail', 8, '2025-07-02 09:00:00', '2025-07-02 17:00:00', '2025-07-02'),
+('Avital Tower, Louvre', 9, '2025-07-02 09:00:00', '2025-07-02 17:00:00', '2025-07-02');
+
 -- 6. Pictures
 INSERT INTO pictures (package_id, alt_text, image_url, sort_order) VALUES
 (1, 'Eiffel Tower', 'https://example.com/eiffel.jpg', 1),

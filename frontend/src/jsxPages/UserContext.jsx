@@ -7,21 +7,19 @@ export const UserProvider = ({ children }) => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
  
-  useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem('currentUser'));
-    console.log("userdata" + userId);
-    if ( userId ) {
-      fetchUserDetails(userId);
-    }
-    else{
+   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetchUserDetailsWithToken(token);
+    } else {
       navigate('/login');
     }
-  },[]);  
-  
-  const fetchUserDetails = async (userId) => {
+  }, []);
+
+  const fetchUserDetailsWithToken = async (token) => {
     try {
-      const DatailsUser = await fetchData(`users/${userId}`, 'GET');
-      setCurrentUser(DatailsUser);
+      const detailsUser = await fetchData('users', 'GET', null, token);
+      setCurrentUser(detailsUser);
     } catch (error) {
       navigate('/login');
       console.error('Error fetching user details:', error);

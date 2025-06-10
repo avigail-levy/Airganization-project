@@ -11,6 +11,17 @@ async function getUserById(id) {
   }
 }
 
+async function getAllUser() {
+  try {
+    const sql = 'SELECT * FROM users ';
+    const [rows] = await connection.query(sql);
+    return rows;
+  }
+   catch (error) {
+    throw error;
+  }
+}
+
 async function getUserByUserNamePassword(username,password) {
   try {
     const sql = 'SELECT * FROM users WHERE user_name = ? AND  password = ?';
@@ -23,5 +34,6 @@ async function getUserByUserNamePassword(username,password) {
 }
 export default {
   getUserById,
-  getUserByUserNamePassword
+  getUserByUserNamePassword,
+  getAllUser
 };

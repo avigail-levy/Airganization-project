@@ -1,7 +1,9 @@
-async function fetchData(navigateString, methodType = "GET", dataContent = null) {
-  const options = {
+async function fetchData(navigateString, methodType = "GET", dataContent = null, tokenParam  = null) {
+   const token =tokenParam || localStorage.getItem("token");
+   const options = {
     headers: {
       'Content-Type': 'application/json',
+      ...(token && { 'Authorization': `Bearer ${token}` }) // הוספת טוקן
     },
     method: methodType,
   };

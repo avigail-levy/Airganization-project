@@ -13,6 +13,9 @@ const Login=()=> {
   e.preventDefault(); 
   try{
     const user = await fetchData('users','POST',{username,password});
+     if (user.token) {
+      localStorage.setItem("token", user.token); // שמירת הטוקן
+     }
     console.log(user);
    if (user.length!=0) {
     localStorage.setItem("currentUser",JSON.stringify(user.id));
@@ -49,4 +52,5 @@ catch (error) {
     </div>
   );
 }
-export default Login
+
+export default Login;

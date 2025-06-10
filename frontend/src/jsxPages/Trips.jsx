@@ -15,7 +15,7 @@ const Trips = () => {
     const getTrips = async () => {
         try {
             console.log(`trips/vacations/${vacationId}`);
-            const response = await fetchData(`trips/vacations/${vacationId}`);
+            const response = await fetchData(`trips?vacationId=${vacationId}`);
             setTrips(response);
         } catch (error) {
             console.error('Error fetching trips:', error);

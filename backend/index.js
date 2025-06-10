@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import usersRoutes from './routes/users.js';
 import vacationsRoutes from './routes/vacations.js';
