@@ -178,7 +178,7 @@ INSERT INTO reviews (user_id, package_id, rating, comment, created_at) VALUES
 (3, 3, 5, 'Loved NYC!', '2025-09-20');
 
 select *
-from vacation_packages;
+from וusers;
 
 select *
 from trips;

@@ -28,7 +28,6 @@ export async function getAllUser(req, res) {
 }
 
 export async function getUserByUserNamePassword(req, res) {
-  console.log('reqqqqqqqqqqqqqqqqqq');
   const {username,password} = req.body;
   try {
     const user = await usersMod.getUserByUserNamePassword(username,password);
@@ -43,7 +42,7 @@ export async function getUserByUserNamePassword(req, res) {
     );
 
     // שליחת פרטי המשתמש + הטוקן
-    res.json({ user: { id: user.id }, token });
+    res.json({ user: { id: user.id, role: user.role }, token });
 
 
   } catch (error) {

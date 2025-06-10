@@ -18,7 +18,8 @@ export const UserProvider = ({ children }) => {
 
   const fetchUserDetailsWithToken = async (token) => {
     try {
-      const detailsUser = await fetchData('users', 'GET', null, token);
+      const detailsUser = await fetchData('users/id', 'GET', null, token);
+      console.log('userssssssssss',detailsUser.name);
       setCurrentUser(detailsUser);
     } catch (error) {
       navigate('/login');

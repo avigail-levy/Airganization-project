@@ -12,17 +12,14 @@ const Login=()=> {
   const btnLogin = async (e) => {
   e.preventDefault(); 
   try{
-    const user = await fetchData('users','POST',{username,password});
-     if (user.token) {
-      localStorage.setItem("token", user.token); // שמירת הטוקן
+    const response = await fetchData('users','POST',{username,password});
+     if (response.token) {
+      localStorage.setItem("token", response.token); // שמירת הטוקן
      }
-    console.log(user);
-   if (user.length!=0) {
-    localStorage.setItem("currentUser",JSON.stringify(user.id));
-    setCurrentUser(user);
-    const idUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log("id"+idUser);
-    navigate(`/users/${idUser}/home`);
+   if (response.user.length!=0) {
+    setCurrentUser(response.user);
+    // const idUser = JSON.parse(localStorage.getItem('currentUser'));
+    navigate(`/home`);
   } 
   else {
     alert('שם משתמש או סיסמה שגויים');

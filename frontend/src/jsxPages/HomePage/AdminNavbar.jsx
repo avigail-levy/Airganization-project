@@ -3,10 +3,11 @@ import { useUserContext } from "../UserContext";
 
 
 const btnArr = [
-  { label: 'לקוחות', path: '/admin/users' },
-  { label: 'הזמנות', path: '/admin/orders' }
+  { label: 'לקוחות', path: 'admin/users' },
+  { label: 'הזמנות', path: 'admin/orders' }
 ];
 const AdminNavbar = () => {
+  const navigate = useNavigate();
     return(
          <> 
          {btnArr.map((btn, index) => (

@@ -16,7 +16,7 @@ const router = createBrowserRouter([
             { path: '/', element: <Navigate to="/login" replace /> },
             { path: 'login', element: <Login /> },
       {
-        path: 'users/:id/home/',
+        path: 'home/',
         element: <Home />,
         children: [
           { path: 'admin/users', element: <Users /> },

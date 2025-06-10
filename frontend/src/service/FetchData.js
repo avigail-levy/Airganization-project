@@ -12,10 +12,11 @@ async function fetchData(navigateString, methodType = "GET", dataContent = null,
     options.body = JSON.stringify(dataContent);
   }
   console.log(methodType,dataContent);
-  console.log(`http://localhost:3000/api/${navigateString}`);
+  // console.log(`http://localhost:3000/api/${navigateString}`);
   const response = await fetch(`http://localhost:3000/api/${navigateString}`, options);
   
   const data = await response.json(); 
+  console.log('data',data);
   if (!response.ok) {
     throw new Error(data.error || "Unknown error");
   }

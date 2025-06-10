@@ -5,7 +5,7 @@ const profile = () => {
  const { currentUser,setCurrentUser } = useUserContext();
      const btnLogout = () => {
          setCurrentUser(null);
-         localStorage.removeItem("currentUser");
+         localStorage.removeItem("token");
          navigate('/login');
       };
       if(!currentUser){

@@ -1,13 +1,18 @@
 import { useNavigate,Outlet, } from "react-router-dom";
 import { useUserContext } from "../UserContext";
-const btnArr=['הזמנות שלי','אודות','צור קשר'];
-
+const btnArr = [
+  { label: 'הזמנות שלי', path: '/admin/users' },
+  { label: 'צור קשר', path: '/admin/orders' },
+  { label: 'אודות', path: '/admin/orders' }
+];
 const ClientNavbar = () => {
+  const navigate=useNavigate();
     return(
          <> 
-        {btnArr.map((index,btn) => (
-          <button key={index}>{btn}</button>
-        ))} 
+        {btnArr.map((btn, index)=> (
+          <button key={index} onClick={() =>navigate(btn.path)}>{btn.label}</button>  ))} 
       </>);
+
+      
                 }
 export default ClientNavbar;

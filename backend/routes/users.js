@@ -6,5 +6,4 @@ router.get('/id',verifyToken, getUserById);
 router.get('/',verifyToken, getAllUser);
 router.post('/', getUserByUserNamePassword);
 
-
 export default router;
