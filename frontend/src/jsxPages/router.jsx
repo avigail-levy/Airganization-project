@@ -8,6 +8,7 @@ import Orders from './Orders.jsx';
 import VacationPackages from './VacationPackages.jsx';
 import Profile from './Profile.jsx';
 import Trips from './Trips.jsx';
+import Register from './Register.jsx';
 const router = createBrowserRouter([
     {
         path: '/',
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
         children: [
             { path: '/', element: <Navigate to="/login" replace /> },
             { path: 'login', element: <Login /> },
+            { path: 'register', element: <Register /> },
       {
         path: 'home/',
         element: <Home />,
@@ -34,4 +36,3 @@ const router = createBrowserRouter([
     }
 ]);
 export default router;
-

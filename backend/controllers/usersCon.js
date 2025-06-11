@@ -49,4 +49,27 @@ export async function getUserByUserNamePassword(req, res) {
     res.status(500).json({ message: 'Error fetching user', error });
   }
 }
+export async function registerUser(req, res) {
+  const {id,name,username,phone,email,role,password} = req.body;
+  console.log('req.body',req.body);
+  try {
+    const user = await usersMod.registerUser(id,name,username,phone,email,role,password);
+    console.log(user);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+      // יצירת טוקן JWT
+    const token = jwt.sign(
+      { id: user.id, role: user.role },
+        process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES }
+    );
+
+    // שליחת פרטי המשתמש + הטוקן
+    res.json({ user: { id: user.id, role: user.role }, token });
+
+
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching user', error });
+  }
+}
 
