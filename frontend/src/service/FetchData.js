@@ -1,5 +1,5 @@
-async function fetchData(navigateString, methodType = "GET", dataContent = null, tokenParam  = null) {
-   const token =tokenParam || localStorage.getItem("token");
+async function fetchData(navigateString, methodType = "GET", dataContent = null) {
+   const token = localStorage.getItem("token");
    const options = {
     headers: {
       'Content-Type': 'application/json',

@@ -28,9 +28,9 @@ export async function getAllUser(req, res) {
 }
 
 export async function getUserByUserNamePassword(req, res) {
-  const {username,password} = req.body;
+  const body = req.body;
   try {
-    const user = await usersMod.getUserByUserNamePassword(username,password);
+    const user = await usersMod.getUserByUserNamePassword(body);
     console.log(user);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
@@ -42,7 +42,8 @@ export async function getUserByUserNamePassword(req, res) {
     );
 
     // שליחת פרטי המשתמש + הטוקן
-    res.json({ user: { id: user.id, role: user.role }, token });
+     res.json({ user: { id: user.id, name:user.name, user_name:user.user_name, phone:user.phone, 
+      email:user.email,role: user.role,}, token });
 
 
   } catch (error) {
@@ -50,11 +51,11 @@ export async function getUserByUserNamePassword(req, res) {
   }
 }
 export async function registerUser(req, res) {
-  const {id,name,username,phone,email,role,password} = req.body;
+  const body = req.body;
   console.log('req.body',req.body);
   try {
-    const user = await usersMod.registerUser(id,name,username,phone,email,role,password);
-    console.log(user);
+    const user = await usersMod.registerUser(body);
+    console.log('user',user);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
       // יצירת טוקן JWT
@@ -64,9 +65,10 @@ export async function registerUser(req, res) {
       { expiresIn: process.env.JWT_EXPIRES }
     );
 
+    console.log('userrrrrr',user.role,user.id);
     // שליחת פרטי המשתמש + הטוקן
-    res.json({ user: { id: user.id, role: user.role }, token });
-
+    res.json({ user: { id: user.id, name:user.name, user_name:user.user_name, phone:user.phone, 
+      email:user.email,role: user.role,}, token });
 
   } catch (error) {
     res.status(500).json({ message: 'Error fetching user', error });

@@ -1,0 +1,81 @@
+.vacation-order-container {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 30px 40px;
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  direction: rtl;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.vacation-order-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  font-size: 24px;
+}
+
+.vacation-order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.vacation-order-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  color: #333;
+}
+
+.vacation-order-form input[type="text"],
+.vacation-order-form input[type="number"] {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  margin-top: 5px;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.vacation-order-form input[type="text"]:focus,
+.vacation-order-form input[type="number"]:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.vacation-order-form input[type="checkbox"] {
+  margin-top: 10px;
+  transform: scale(1.2);
+}
+
+.vacation-order-form button {
+  background-color: #3498db;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.vacation-order-form button:hover {
+  background-color: #2980b9;
+}
+
+@media (max-width: 600px) {
+  .vacation-order-container {
+    padding: 20px;
+  }
+
+  .vacation-order-form label {
+    font-size: 15px;
+  }
+
+  .vacation-order-form button {
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,35 @@
+.orders-page {
+  padding: 20px;
+  direction: rtl;
+  font-family: 'Arial', sans-serif;
+}
+
+.orders-page h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.order-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.order-card:hover {
+  transform: scale(1.02);
+}
+
+.order-card h3 {
+  margin-top: 0;
+  color: #0077cc;
+}

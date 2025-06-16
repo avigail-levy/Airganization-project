@@ -1,0 +1,54 @@
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.package-card {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background-color: #fdfdfd;
+  transition: transform 0.2s ease;
+}
+
+.package-card:hover {
+  transform: scale(1.02);
+}
+
+.package-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.package-card h2 {
+  margin: 8px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.package-card p {
+  font-size: 0.95rem;
+  color: #555;
+  min-height: 60px;
+}
+
+.package-card button {
+  margin-top: 10px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.package-card button:hover {
+  background-color: #1976d2;
+}

@@ -9,6 +9,7 @@ const profile = () => {
          navigate('/login');
       };
       if(!currentUser){
+        setCurrentUser({});
         return null;
       }
     return (

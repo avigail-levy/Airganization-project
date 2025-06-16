@@ -1,26 +1,23 @@
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import fetchData from "../service/FetchData";
+import { useUserContext } from "./UserContext";
 
 const Register = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [error, setError] = useState('');
-    const [valuesInput,setValuesInput] = useState({
-        id: '',
-        name:'',
+    const { setCurrentUser } = useUserContext();
+    const [valuesInput, setValuesInput] = useState({
+        name: '',
         username: '',
-        phone:'',
-        email:'',
-        role:'',
+        phone: '',
+        email: '',
+        role: location.state?.role || 'customer',
         password: ''
-    })
+    });
 
     const validateValues = () => {
-
-        if (valuesInput.id.length !== 9) {
-            setError("תעודת זהות חייבת להכיל 9 ספרות");
-            return false;
-        }
         if (valuesInput.username.length < 3) {
             setError("שם משתמש חייב להכיל לפחות 3 תווים");
             return false;
@@ -38,73 +35,77 @@ const Register = () => {
             return false;
         }
         return true;
-    }
+    };
 
-    const Register = async(e) => {
-        e.preventDefault()        
+    const Register = async (e) => {
+        e.preventDefault();
         setError('');
         if (!validateValues()) return;
         try {
-            const response = await fetchData(`users/register`, 'POST', {
-                id: valuesInput.id, 
-                name: valuesInput.name,
-                username: valuesInput.username, 
-                phone: valuesInput.phone,
-                email: valuesInput.email,
-                role: 'customer',
-                password: valuesInput.password,
-                // isActive: true
-            });
-
-            localStorage.setItem('token', response.token);
-            alert('נרשמת בהצלחה!');
-            navigate('/home');
+            const response = await fetchData(`users/register`, 'POST', valuesInput );
+            console.log('response', response);
+            if(location.state?.role==='customer')
+            {
+                localStorage.setItem('token', response.token);
+                setCurrentUser(response.user);
+            }
+            
+            alert('נרשם בהצלחה!');
+            if(location.state?.role==='manager')
+            {
+                navigate('/users');
+            }
+            else{navigate('/home');}
+            
         } catch (error) {
             console.error('Signup error:', error);
             setError("שדה אחד או יותר לא תקינים, אנא נסה שוב");
         }
-    }
+    };
+
     const updateCurrentValues = (e) => {
-        setValuesInput({...valuesInput,[e.target.name]: e.target.value})
-    }
-                           
-        return (
+        setValuesInput({ ...valuesInput, [e.target.name]: e.target.value });
+    };
+
+    return (
         <div>
-            <>
-            <h1>Register</h1>
-            <form onSubmit={Register}>
-                <label htmlFor="id">תעודת זהות:</label>
-                <input type="text" id="id" name="id" 
-                        onChange={(e) => updateCurrentValues(e)} required/>
-                <br/>
-                <label htmlFor="name">שם </label>
-                <input type="text" id="name" name="name" 
-                        onChange={(e) => updateCurrentValues(e)} required/>
-                <br/>
-                <label htmlFor="username">שם משתמש</label>
-                <input type="text" id="username" name="username" 
-                        onChange={(e) => updateCurrentValues(e)} required/>
-                <br/>
-                <label htmlFor="password">סיסמא</label>
-                <input type="password" id="password" name="password" 
-                        onChange={(e) => updateCurrentValues(e)} required />
-                <br/>
-                <label htmlFor="phone">טלפון</label>
-                <input type="tel" id="phone" name="phone" 
-                        onChange={(e) => updateCurrentValues(e)} required/>
-                <br/>
-                <label htmlFor="email">כתובת אימייל</label>
-                <input type="email" id="email" name="email" 
-                        onChange={(e) => updateCurrentValues(e)} required />
-                <br/>
-                
+           
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            
+            {
+  location.state?.role === 'manager' ? (
+    <h1 style={{ color: 'blue', fontWeight: 'bold', marginBottom: '1rem' }}>
+      רישום מנהל חדש
+    </h1>
+  ) : (
+    <h1 style={{ color: 'green', fontWeight: 'bold', marginBottom: '1rem' }}>
+      הרשמה
+    </h1>
+  )
+}
+            <form onSubmit={Register} style={{ direction: 'rtl' }}>
+                <br />
+                <label htmlFor="name">שם:</label>
+                <input type="text" id="name" name="name" onChange={(e) => updateCurrentValues(e)} required />
+                <br />
+                <label htmlFor="username">שם משתמש:</label>
+                <input type="text" id="username" name="username" onChange={(e) => updateCurrentValues(e)} required />
+                <br />
+                <label htmlFor="password">סיסמא:</label>
+                <input type="password" id="password" name="password" onChange={(e) => updateCurrentValues(e)} required />
+                <br />
+                <label htmlFor="phone">טלפון:</label>
+                <input type="tel" id="phone" name="phone" onChange={(e) => updateCurrentValues(e)} required />
+                <br />
+                <label htmlFor="email">כתובת אימייל:</label>
+                <input type="email" id="email" name="email" onChange={(e) => updateCurrentValues(e)} required />
+                <br />
                 <button>הירשם</button>
             </form>
-            {error && <div className="error-message">{error}</div>}
-            <Link to="/">כבר נרשמת אלינו? התחבר כאן</Link>
-            </>
-  </div>
-    )
-}
+        </div>
+    );
+};
 
 export default Register;
+      
+    

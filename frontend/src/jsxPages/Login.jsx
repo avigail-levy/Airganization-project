@@ -12,7 +12,7 @@ const Login=()=> {
   const btnLogin = async (e) => {
   e.preventDefault(); 
   try{
-    const response = await fetchData('users','POST',{username,password});
+    const response = await fetchData('users/login','POST',{username,password});
      if (response.token) {
       localStorage.setItem("token", response.token); // שמירת הטוקן
      }
@@ -37,6 +37,10 @@ catch (error) {
       <label>alicec</label>
       <br/>
       <label>hashed_pw1</label>
+      <br/>
+     <label>rinam</label>
+     <br/>
+     <label>hashed_pw3</label>
       <input type="text" placeholder="Username" value={username} required 
               onChange={(e) => setUsername(e.target.value)}/>
       <br/>
