@@ -10,15 +10,16 @@ export const UserProvider = ({ children }) => {
    useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      fetchUserDetailsWithToken(token);
-    } else {
+      fetchUserDetailsWithToken();
+    }
+     else {
       navigate('/login');
     }
   }, []);
 
-  const fetchUserDetailsWithToken = async (token) => {
+  const fetchUserDetailsWithToken = async () => {
     try {
-      const detailsUser = await fetchData('users/id', 'GET', null, token);
+      const detailsUser = await fetchData('users/id', 'GET', null);
       console.log('userssssssssss',detailsUser.name);
       setCurrentUser(detailsUser);
     } catch (error) {

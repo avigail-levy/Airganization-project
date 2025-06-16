@@ -7,9 +7,9 @@ const Register = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [error, setError] = useState('');
-    const { setCurrentUser } = useUserContext();
+    const {currentUser, setCurrentUser } = useUserContext();
     const [valuesInput, setValuesInput] = useState({
-        name: '',
+        name: currentUser.name||'',
         username: '',
         phone: '',
         email: '',
@@ -36,7 +36,6 @@ const Register = () => {
         }
         return true;
     };
-
     const Register = async (e) => {
         e.preventDefault();
         setError('');
@@ -74,15 +73,8 @@ const Register = () => {
             
             {
   location.state?.role === 'manager' ? (
-    <h1 style={{ color: 'blue', fontWeight: 'bold', marginBottom: '1rem' }}>
-      רישום מנהל חדש
-    </h1>
-  ) : (
-    <h1 style={{ color: 'green', fontWeight: 'bold', marginBottom: '1rem' }}>
-      הרשמה
-    </h1>
-  )
-}
+    <h1 style={{ color: 'blue', fontWeight: 'bold', marginBottom: '1rem' }}>רישום מנהל חדש</h1>)
+      : (<h1 style={{ color: 'green', fontWeight: 'bold', marginBottom: '1rem' }}>הרשמה</h1>)}
             <form onSubmit={Register} style={{ direction: 'rtl' }}>
                 <br />
                 <label htmlFor="name">שם:</label>
@@ -100,7 +92,8 @@ const Register = () => {
                 <label htmlFor="email">כתובת אימייל:</label>
                 <input type="email" id="email" name="email" onChange={(e) => updateCurrentValues(e)} required />
                 <br />
-                <button>הירשם</button>
+                { currentUser ?<button type="button" onClick={updateUser}>עדכון</button> 
+                : <button type="submit"> הרשמה</button>}
             </form>
         </div>
     );

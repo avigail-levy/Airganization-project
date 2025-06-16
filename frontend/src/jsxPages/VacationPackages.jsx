@@ -29,10 +29,8 @@ const VacationPackages = () => {
     <div
       className="package-card clickable"
       key={vacationPackage.id}
-      onClick={() => navigate(`/home/vacationPackages/${vacationPackage.id}`, {
-  state: vacationPackage
-     })}
-    >
+      onClick={() => navigate(`/home/vacationPackages/${vacationPackage.id}`,
+         {state: vacationPackage})}>
 
       {vacationPackage.image_url && (
         <img src={vacationPackage.image_url} alt={vacationPackage.alt_text} />

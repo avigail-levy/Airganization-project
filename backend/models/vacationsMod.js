@@ -2,7 +2,9 @@ import connection from '../database/db.js';
 
 async function getVacationsPackages() {
   try {
-    const sql = 'SELECT vp.*, p.image_url, p.alt_text FROM vacation_packages vp LEFT JOIN pictures p ON vp.id = p.package_id AND p.sort_order = 1' ;
+    const sql = `SELECT vp.*, p.image_url, p.alt_text 
+                 FROM vacation_packages vp LEFT JOIN pictures p
+                 ON vp.id = p.package_id AND p.sort_order = 1` ;
     const [rows] = await connection.query(sql);
     return rows;
   }

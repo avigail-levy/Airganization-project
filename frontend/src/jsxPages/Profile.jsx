@@ -14,7 +14,7 @@ const profile = () => {
       }
     return (
         <>
-    <h1>פרופיל אישי</h1>
+       <h1>פרופיל אישי</h1>
        <button onClick={btnLogout}>התנתק</button>
        </>
     );

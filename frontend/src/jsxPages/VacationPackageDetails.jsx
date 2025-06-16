@@ -32,11 +32,8 @@ const VacationPackagesDetails = () => {
     <div className="package-details-container">
       <h1 className="title">{name}</h1>
         {vacationPackage.image_url && (
-    <img
-      src={vacationPackage.image_url}
-      alt={vacationPackage.alt_text }
-      className="package-image"
-    />
+    <img src={vacationPackage.image_url} alt={vacationPackage.alt_text }
+      className="package-image"/>
   )}
       <div className="details-grid">
         <p>📅 <strong>תאריכים:</strong> {formatDate(vacationPackage.start_date)} - {formatDate(vacationPackage.end_date)}</p>
