@@ -2,7 +2,7 @@ import { useNavigate,Outlet, } from "react-router-dom";
 import { useUserContext } from "../UserContext";
 const btnArr = [
   { label: 'הזמנות שלי', path: 'myOrders' },
-  { label: 'צור קשר', path: '/admin/orders' },
+  { label: 'צור קשר', path: 'ContactForm' },
   { label: 'אודות', path: '/admin/orders' }
 ];
 const ClientNavbar = () => {

@@ -118,7 +118,8 @@ const RegisterOrUpdate = () => {
                 <br />
 
                 <button>{isUpdate ? 'עדכן' : 'הירשם'}</button>
-            </form>
+                
+            </form> 
         </div>
     );
 };

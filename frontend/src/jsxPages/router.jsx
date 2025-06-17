@@ -13,6 +13,7 @@ import AddManager from './Users/AddManager.jsx';
 import VacationPackagesDetails from './VacationPackageDetails.jsx';
 import AddVacation from './AddUpdateVacation.jsx';
 import VacationOrder from './VacationOrder.jsx';
+import ContactForm from "./ContactForm.jsx";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
           { path:'vacationPackages', element: <VacationPackages/>},
           {path:'myOrders', element:<Orders/>},
           {path:'vacationPackages', element:<AddVacation/>},
+          {path:'ContactForm', element:<ContactForm/>},
           {path:'vacationPackages/:vacationId', element:<AddVacation/>},
           {path:'vacationPackages/:vacationId/order', element:<VacationOrder/>},
              {path:'vacationPackages/:vacationId', element:<VacationPackagesDetails/>,

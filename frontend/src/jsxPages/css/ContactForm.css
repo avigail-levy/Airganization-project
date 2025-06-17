@@ -1,0 +1,97 @@
+/* 
+
+.form-wrapper {
+  background-color: #1b2244;
+  padding-top: 20px;
+  color: white;
+  font-family: sans-serif;
+}
+
+
+.form-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  color: #f97316;
+  font-size: 40px;
+  font-weight: 100;
+  margin: 0;
+}
+
+
+.contact-form {
+  max-width: 900px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.grid {
+  display: grid;
+  grid-template-areas:
+    "name phone message"
+    "email topic message";
+  column-gap: 20px;
+  
+}
+
+
+.field:nth-child(1) { grid-area: name; }
+.field:nth-child(2) { grid-area: phone; }
+.field:nth-child(3) { grid-area: email; }
+.field:nth-child(4) { grid-area: topic; }
+.message-field      { grid-area: message; }
+
+.field {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  direction: rtl;
+  width: 100%;
+}
+
+.field label {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: none;
+  border-radius: 2px;
+  font-size: 15px;
+  color: #000;
+  box-sizing: border-box;
+}
+
+textarea {
+  width: 130%;
+  height: 200px;
+  resize: vertical;
+}
+
+.submit-btn {
+  align-self: flex-start;
+  background-color: #f97316;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submit-btn:hover {
+  background-color: #fb923c;
+}
+
+.status {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ffe48f;
+} */
