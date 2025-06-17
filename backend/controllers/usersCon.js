@@ -74,4 +74,20 @@ export async function registerUser(req, res) {
     res.status(500).json({ message: 'Error fetching user', error });
   }
 }
+export async function updateUser(req, res) {
+  const body = req.body;
+  console.log('update body:', body);
 
+  try {
+    const updatedUser = await usersMod.updateUser(body);
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found or not updated' });
+    }
+
+    return res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error('Error updating user:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+}

@@ -11,7 +11,7 @@ import Trips from './Trips.jsx';
 import Register from './Register.jsx';
 import AddManager from './Users/AddManager.jsx';
 import VacationPackagesDetails from './VacationPackageDetails.jsx';
-import AddVacation from './AddVacation.jsx';
+import AddVacation from './AddUpdateVacation.jsx';
 import VacationOrder from './VacationOrder.jsx';
 const router = createBrowserRouter([
     {
@@ -31,7 +31,8 @@ const router = createBrowserRouter([
           { path:'admin/orders', element: <Orders /> },
           { path:'vacationPackages', element: <VacationPackages/>},
           {path:'myOrders', element:<Orders/>},
-          {path:'vacationPackages/add', element:<AddVacation/>},
+          {path:'vacationPackages', element:<AddVacation/>},
+          {path:'vacationPackages/:vacationId', element:<AddVacation/>},
           {path:'vacationPackages/:vacationId/order', element:<VacationOrder/>},
              {path:'vacationPackages/:vacationId', element:<VacationPackagesDetails/>,
               children:[
@@ -39,7 +40,8 @@ const router = createBrowserRouter([
                 ]
               },
 
-          { path: 'profile', element:<Profile/>}
+          { path: 'profile', element:<Profile/>},
+          {path:'update',element:<Register/>}
         ]
       },
        {path:'*', element:<Navigate to="/login"/>}

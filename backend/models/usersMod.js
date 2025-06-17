@@ -15,6 +15,7 @@ async function getAllUser() {
   try {
     const sql = 'SELECT * FROM users ';
     const [rows] = await connection.query(sql);
+    console.log('rowss',rows);
     return rows;
   }
    catch (error) {
@@ -46,9 +47,34 @@ async function registerUser(body) {
     throw error;
   }
 }
+async function updateUser(body) {
+  console.log(moddddd);
+
+  const {id,name, user_name, phone, email } = body;
+
+  try {
+    const sql = `
+      UPDATE users
+      SET name = ?, user_name = ?, phone = ?, email = ?
+      WHERE id = ?
+    `;
+
+    const [result] = await connection.query(sql, [name, user_name, phone, email,id]);
+
+    if (result.affectedRows === 0) {
+      return null; // אם לא נמצא משתמש עם id הזה
+    }
+
+    return { id, name, user_name, phone, email };
+  } catch (error) {
+    throw error;
+  }
+}
+
 export default {
   getUserById,
   getUserByUserNamePassword,
   getAllUser,
-  registerUser
+  registerUser,
+  updateUser
 };

@@ -10,6 +10,17 @@ export async function getVacationsPackages(req, res) {
     res.status(500).json({ message: 'Error fetching vacations', error });
   }
 }
+export async function getVacationPackageById(req, res) {
+  const id = req.params.id;
+  try {
+    const vacation = await vacationsMod.getVacationPackageById(id);
+    if (!vacation) return res.status(404).json({ message: 'vacation not found' });
+    res.json(vacation);
+  }
+   catch (error) {
+    res.status(500).json({ message: 'Error fetching vacations', error });
+  }
+}
 export async function postVacation(req, res) {
   console.log('vacation',req.body);
   const vacation = req.body;

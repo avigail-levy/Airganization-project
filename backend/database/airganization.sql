@@ -179,3 +179,18 @@ select * from destinations;
 select * from vacation_packages;
 SELECT * FROM destinations where continent_id=1;
 select * from invitations;
+
+CREATE OR REPLACE VIEW vacation_package_view AS
+SELECT 
+  vp.*, 
+  p.image_url, 
+  p.alt_text, 
+  d.country_name, 
+  c.continent_name
+FROM vacation_packages vp
+LEFT JOIN pictures p 
+  ON vp.id = p.package_id AND p.sort_order = 1
+JOIN destinations d 
+  ON vp.destination_id = d.id
+JOIN continents c 
+  ON d.continent_id = c.id;

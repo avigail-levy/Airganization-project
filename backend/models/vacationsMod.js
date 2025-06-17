@@ -2,11 +2,19 @@ import connection from '../database/db.js';
 
 async function getVacationsPackages() {
   try {
-    const sql = `SELECT vp.*, p.image_url, p.alt_text 
-                 FROM vacation_packages vp LEFT JOIN pictures p
-                 ON vp.id = p.package_id AND p.sort_order = 1` ;
+    const sql = `SELECT * FROM vacation_package_view` ;
     const [rows] = await connection.query(sql);
     return rows;
+  }
+   catch (error) {
+    throw error;
+  }
+}
+async function getVacationPackageById(id) {
+  try {
+    const sql = `SELECT * FROM vacation_packages where id=?` ;
+    const [rows] = await connection.query(sql,[id]);
+    return rows[0];
   }
    catch (error) {
     throw error;
@@ -46,5 +54,5 @@ async function postVacation(vacation) {
     throw error;
   }
 }
-export default { getVacationsPackages,postVacation};
+export default { getVacationsPackages,postVacation,getVacationPackageById};
 

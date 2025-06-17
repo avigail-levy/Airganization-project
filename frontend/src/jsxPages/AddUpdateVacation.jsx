@@ -2,14 +2,14 @@ import { useState ,useEffect } from 'react';
 import './css/AddVacation.css';
 import { useUserContext } from "./UserContext";
 import fetchData from "../service/FetchData";
-import handleAdd from '../service/HandleAdd';
+import {  useParams } from 'react-router-dom';
 
-const AddVacation = () => {
+const AddUpdateVacation = () => {
   const { currentUser } = useUserContext();
   const [continents, setContinents] = useState([]);
   const [selectedContinent, setSelectedContinent] = useState('');
   const [destinations, setDestinations] = useState([]);
-
+  const {vacationId}=useParams;
   const [formData, setFormData] = useState({
     name: '',
     start_date: '',
@@ -37,8 +37,21 @@ const AddVacation = () => {
 
   useEffect(() => {
     getAllContinents();
+    if(id)
+    {
+      getVacationById(id);
+    }
+    
   }, []);
 
+  const getVacationById = async (id) => {
+    try {
+      const response = await fetchData(`vacationPackages/${id}`);
+      setFormData(response);
+    } catch (error) {
+      console.error('Error fetching vacation:', error);
+    }
+  }
   const getAllContinents = async () => {
       try {
         const response = await fetchData('continents');
@@ -133,4 +146,4 @@ const AddVacation = () => {
   );
 };
 
-export default AddVacation;
+export default AddUpdateVacation;
