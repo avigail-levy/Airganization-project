@@ -20,39 +20,42 @@ async function getVacationPackageById(id) {
     throw error;
   }
 }
-async function postVacation(vacation) {
-  const{
-  name ,
-  start_date ,
-  end_date ,
-  description,
-  adult_price ,
-  child_price,
-  manager_id ,
-  destination_id,
-  available_slots}=vacation;
+async function createVacation(vacation) {
+  const{name ,start_date ,end_date ,description,adult_price ,
+  child_price,manager_id ,destination_id,available_slots}=vacation;
   try {
    const sql = `
       INSERT INTO vacation_packages
       (name, start_date, end_date, description, adult_price, child_price, manager_id, destination_id, available_slots)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
-    const [rows] = await connection.query(sql, [
-      name,
-      start_date,
-      end_date,
-      description,
-      adult_price,
-      child_price,
-      manager_id,
-      destination_id,
-      available_slots
-    ]);
+    const [rows] = await connection.query(sql,
+      [name,start_date,end_date,description,adult_price,
+      child_price,manager_id,destination_id,available_slots]);
     return rows;
   }
    catch (error) {
     throw error;
   }
 }
-export default { getVacationsPackages,postVacation,getVacationPackageById};
+async function updateVacation(vacation) {
+  const{id,name ,start_date ,end_date ,description,adult_price ,
+    child_price,manager_id ,destination_id,available_slots} = vacation;
+    console.log('vacation',id,name,start_date ,end_date ,description,adult_price );
+  try {
+   const sql = `
+      UPDATE  vacation_packages 
+      SET name=?, start_date=?, end_date=?, description=?, adult_price=?, child_price=?, manager_id=?,
+      destination_id=?, available_slots=?
+      WHERE id=?`;
+      const [rows] = await connection.query(sql, 
+      [name,start_date,end_date,description,adult_price,
+      child_price,manager_id,destination_id,available_slots,id]);
+    return rows;
+  }
+   catch (error) {
+    throw error;
+  }
+}
+export default {getVacationsPackages,createVacation,getVacationPackageById,updateVacation};
 

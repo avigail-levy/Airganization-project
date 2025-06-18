@@ -48,10 +48,9 @@ async function registerUser(body) {
   }
 }
 async function updateUser(body) {
-  console.log(moddddd);
-
-  const {id,name, user_name, phone, email } = body;
-
+  // console.log("moddddd",body);
+  const { id ,name, user_name, phone, email } = body;
+  console.log(id,name, user_name, phone, email);
   try {
     const sql = `
       UPDATE users

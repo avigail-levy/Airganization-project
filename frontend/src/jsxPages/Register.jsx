@@ -64,10 +64,10 @@ const RegisterOrUpdate = () => {
 
         try {
             if (isUpdate) {
-                const response = await fetchData('users/update', 'PUT', valuesInput);
-                setCurrentUser(response.user);
+                const user = await fetchData('users/update', 'PUT', valuesInput);
+                setCurrentUser(user);
                 alert('הפרטים עודכנו בהצלחה');
-                navigate('/profile') ;
+                navigate('/home') ;
             } else {
                 const response = await fetchData('users/register', 'POST', valuesInput);
                 if (role === 'customer') {

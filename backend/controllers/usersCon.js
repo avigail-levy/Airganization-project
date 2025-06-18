@@ -1,3 +1,4 @@
+import { console } from 'inspector';
 import usersMod from '../models/usersMod.js';
 import jwt from 'jsonwebtoken';
 
@@ -75,12 +76,12 @@ export async function registerUser(req, res) {
   }
 }
 export async function updateUser(req, res) {
-  const body = req.body;
-  console.log('update body:', body);
-
+  console.log('update user',req.body);
+   const { body } = req;
+  //  const body = req.body;
+  console.log('bodyyyyyyyyyyyyyyyy',body);
   try {
     const updatedUser = await usersMod.updateUser(body);
-
     if (!updatedUser) {
       return res.status(404).json({ message: 'User not found or not updated' });
     }

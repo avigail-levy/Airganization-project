@@ -47,7 +47,7 @@ const VacationPackages = () => {
       />
 
       {currentUser.role === "manager" && (
-        <button onClick={() => navigate("/home/vacationPackages")}>
+        <button onClick={() => navigate("/home/vacationPackages/add")}>
           הוסף חבילה
         </button>
       )}
@@ -58,24 +58,17 @@ const VacationPackages = () => {
             className="package-card clickable"
             key={vacationPackage.id}
               onClick={() =>
-              navigate(`/home/vacationPackages/${vacationPackage.id}`, {
-                state: vacationPackage,
-              })
-            }
-          >
+              navigate(`/home/vacationDetails/${vacationPackage.id}`, {state: vacationPackage,})}>
             {vacationPackage.image_url && (
-              <img
-                src={vacationPackage.image_url}
-                alt={vacationPackage.alt_text}
-              />
-            )}
+               <img src={vacationPackage.image_url}
+                    alt={vacationPackage.alt_text}/>)}
             <h2>
               {vacationPackage.country_name} in {vacationPackage.continent_name}
             </h2>
             <h2>{vacationPackage.name}</h2>
             <p>{vacationPackage.description}</p>
-        <button onClick={() =>  navigate(`/home/vacationPackages/${vacationPackage.id}`)}> עריכה</button>
-          </div>
+             
+                       </div>
        ))}
       </div>
     </>

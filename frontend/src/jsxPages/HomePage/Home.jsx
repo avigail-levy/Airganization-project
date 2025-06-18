@@ -8,14 +8,16 @@ const navBtnArr = [
   { label:'פרופיל אישי' ,path:'profile'}
 ];
 const Home = () => {
+  
     const navigate = useNavigate();
     const { currentUser } = useUserContext();
+    
     return(
          <>
             <h2>hi {currentUser.name}</h2>
                   {navBtnArr.map((btn, index) => (
              <button key={index} onClick={() => navigate(btn.path)}> {btn.label} </button> ))}  
-{currentUser.role === 'manager' ? <AdminNavbar /> : <ClientNavbar />}
+               {currentUser.role === 'manager' ? <AdminNavbar /> : <ClientNavbar />}
                 <Outlet />   
          </>);}
 export default Home

@@ -1,16 +1,19 @@
 import { useState ,useEffect } from 'react';
-import './css/AddVacation.css';
+import './css/AddUpdateVacation.css';
 import { useUserContext } from "./UserContext";
 import fetchData from "../service/FetchData";
-import {  useParams } from 'react-router-dom';
+import { useParams ,useNavigate} from 'react-router-dom';
+
 
 const AddUpdateVacation = () => {
   const { currentUser } = useUserContext();
-  const [continents, setContinents] = useState([]);
-  const [selectedContinent, setSelectedContinent] = useState('');
-  const [destinations, setDestinations] = useState([]);
-  const {vacationId}=useParams;
-  const [formData, setFormData] = useState({
+  const [ continents, setContinents ] = useState([]);
+  const [ selectedContinent, setSelectedContinent ] = useState('');
+  const [ destinations, setDestinations ] = useState([]);
+  const navigate=useNavigate();
+  const { vacationId } = useParams();
+  const [ formData, setFormData ] = useState({
+    id: vacationId ||'',
     name: '',
     start_date: '',
     end_date: '',
@@ -21,7 +24,6 @@ const AddUpdateVacation = () => {
     destination_id: '',
     available_slots: ''
   });
-
   const loadDestinationsForContinent = async (continentId) => {
     try {
       const response = await fetchData(`destinations/${continentId}`);
@@ -36,18 +38,23 @@ const AddUpdateVacation = () => {
   };
 
   useEffect(() => {
+    console.log('currentUser',currentUser.id);
     getAllContinents();
-    if(id)
+    if(vacationId)
     {
-      getVacationById(id);
+      getVacationById(vacationId);
     }
-    
   }, []);
 
-  const getVacationById = async (id) => {
+  const getVacationById = async (vacationId) => {
     try {
-      const response = await fetchData(`vacationPackages/${id}`);
-      setFormData(response);
+      const response = await fetchData(`vacationPackages/${vacationId}`);
+      const cleaned = {
+  ...response,
+  start_date: response.start_date?.substring(0, 10),
+  end_date: response.end_date?.substring(0, 10)
+};
+setFormData(cleaned);
     } catch (error) {
       console.error('Error fetching vacation:', error);
     }
@@ -72,21 +79,82 @@ const AddUpdateVacation = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const { name, value } = e.target;
+  const cleanValue = name === "start_date" || name === "end_date"
+    ? value.substring(0, 10)  // מבטיח שזה בלי שעה
+    : value;
 
-  const handleSubmit = (e) => {
+  setFormData(prev => ({ ...prev, [name]: cleanValue }));
+  console.log(formData.manager_id);
+};
+
+ const checkFormat = () => {
+  if(formData.name==='')
+  {
+    alert('שם החבילה לא הוזנה');
+    return false;
+  }
+   if(formData.start_date > formData.end_date)
+   {
+     alert('תאריך ההתחלה צריך להיות לפני תאריך הסיום');
+     return false;
+   }
+   if(formData.start_date < new Date().toISOString().split('T')[0])
+   {
+    alert('תאריך התחלה לא תקין');
+     return false;
+   }
+   if(formData.end_date < new Date().toISOString().split('T')[0])
+   {
+     alert('תאריך סיום לא תקין');
+     return false;
+   }
+   if(formData.description === '')
+   {
+     alert('תיאור לא תקין');
+     return false;
+   }
+   if(formData.adult_price <= 0)
+   {
+     alert('מחיר למבוגר לא תקין');
+     return false;
+   }
+   if(formData.child_price <= 0)
+   {
+     alert('מחיר לילד לא תקין');
+     return false;
+   }
+   if(formData.available_slots <= 0)
+   {
+     alert('כמות מקומות לא תקינה');
+     return false;
+   }
+   return true;
+ }
+  const handleAdd = (e) => {
     e.preventDefault();
+   if(checkFormat()) {
     console.log('שליחת טופס:', formData);
-    fetchData('vacationPackages','POST',formData);
+    fetchData('vacationPackages/add','POST',formData);
     alert('החבילה נוספה בהצלחה');
+    navigate('/home/vacationPackages');
+    
+   }
   };
-
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    if(checkFormat()) {
+    console.log('formData',formData);
+    console.log('שליחת טופס:', formData);
+    fetchData('vacationPackages/update','PUT',formData);
+    alert('החבילה עודכנה בהצלחה');
+    navigate('/home/vacationPackages');
+    }
+  };
   return (
     <div className="add-vacation-container">
-      <h1>הוספת חבילת נופש</h1>
-      <form className="vacation-form" onSubmit={handleSubmit}>
+     {vacationId ? <h1>עדכון חבילת נופש</h1> : <h1>הוספת חבילת נופש</h1>} 
+      <form className="vacation-form">
         <label>
           שם החבילה:
           <input type="text" name="name" value={formData.name} onChange={handleChange} required />
@@ -94,12 +162,12 @@ const AddUpdateVacation = () => {
 
         <label>
           תאריך התחלה:
-          <input type="date" name="start_date" value={formData.start_date} onChange={handleChange} required />
+          <input type="date" name="start_date" value={formData.start_date ? formData.start_date.substring(0, 10) : ""} onChange={handleChange} required />
         </label>
 
         <label>
           תאריך סיום:
-          <input type="date" name="end_date" value={formData.end_date} onChange={handleChange} required />
+          <input type="date" name="end_date" value={formData.end_date ? formData.end_date.substring(0, 10) : ""} onChange={handleChange} required />
         </label>
 
         <label>
@@ -139,8 +207,8 @@ const AddUpdateVacation = () => {
             ))}
           </select>
         </label>
-
-        <button className="submit-btn" onClick={handleSubmit} >✅ הוסף חבילה</button>
+        {vacationId ? <button className="AddUpdate-btn" onClick={handleUpdate}>עדכן חבילה</button> :
+        <button className="AddUpdate-btn" onClick={handleAdd}>הוסף חבילה</button>}
       </form>
     </div>
   );

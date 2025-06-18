@@ -21,13 +21,26 @@ export async function getVacationPackageById(req, res) {
     res.status(500).json({ message: 'Error fetching vacations', error });
   }
 }
-export async function postVacation(req, res) {
+export async function createVacation(req, res) {
   console.log('vacation',req.body);
   const vacation = req.body;
   console.log('vacation',vacation);
   
   try {
-    const vacations = await vacationsMod.postVacation(vacation);
+    const vacations = await vacationsMod.createVacation(vacation);
+    if (!vacations) return res.status(404).json({ message: 'vacations not found' });
+    res.json(vacations);
+  }
+   catch (error) {
+    res.status(500).json({ message: 'Error fetching vacations', error });
+  }
+}
+export async function updateVacation(req, res) {
+  console.log('vacation',req.body);
+  const vacation = req.body;
+  console.log('vacation',vacation);
+  try {
+    const vacations = await vacationsMod.updateVacation(vacation);
     if (!vacations) return res.status(404).json({ message: 'vacations not found' });
     res.json(vacations);
   }

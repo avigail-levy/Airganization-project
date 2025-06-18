@@ -45,10 +45,14 @@ const VacationPackagesDetails = () => {
       <p className="description">{description}</p>
 
       <div className="button-row">
+        <button className="action-btn" onClick={(e) => { 
+               navigate(`/home/vacationPackages/${vacationPackage.id}`),{state:vacationPackage.id};}}>עריכה</button>
         <button className="action-btn" onClick={() => navigate('trips')}>הצג טיולים</button>
-       {currentUser.role==='customer' && <button className="action-btn" onClick={() => navigate(`/home/vacationPackages/${vacationPackage.id}/order`, { state: vacationPackage })}>
-  הזמן חבילה
-</button>}
+       {currentUser.role==='customer' && 
+       <button className="action-btn" 
+       onClick={() => navigate(`/home/vacationPackages/${vacationPackage.id}/order`, { state: vacationPackage })}>
+    הזמן חבילה
+  </button>}
       </div>
     </div>
   );
