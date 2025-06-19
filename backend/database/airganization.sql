@@ -194,3 +194,4 @@ JOIN destinations d
   ON vp.destination_id = d.id
 JOIN continents c 
   ON d.continent_id = c.id;
+select * from users;

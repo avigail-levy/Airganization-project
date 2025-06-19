@@ -5,7 +5,7 @@ import fetchData from '../service/FetchData';
 const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState({});
+  const [ currentUser, setCurrentUser ] = useState(null);
  
    useEffect(() => {
     const token = localStorage.getItem('token');
@@ -13,17 +13,18 @@ export const UserProvider = ({ children }) => {
       fetchUserDetailsWithToken();
     }
      else {
-      navigate('/login');
+      navigate('/home');
     }
-  }, []);
+  },[]);
 
   const fetchUserDetailsWithToken = async () => {
     try {
+      console.log("chatchkun!");
       const detailsUser = await fetchData('users/id', 'GET', null);
       console.log('userssssssssss',detailsUser.name);
       setCurrentUser(detailsUser);
     } catch (error) {
-      navigate('/login');
+      // navigate('/login');
       console.error('Error fetching user details:', error);
     }
   };

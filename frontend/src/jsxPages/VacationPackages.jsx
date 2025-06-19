@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import fetchData from "../service/FetchData";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./css/VacationPackages.css";
 import { useUserContext } from "./UserContext";
 import VacationFilterSort from "./VacationFilterSort";
@@ -30,7 +30,7 @@ const VacationPackages = () => {
       console.error("Error fetching vacation packages:", error);
     }
   };
-
+   const isManager = currentUser && currentUser.role === "manager";
   return (
     <>
       <h1>חבילות נופש</h1>
@@ -46,12 +46,11 @@ const VacationPackages = () => {
         setSortBy={setSortBy}
       />
 
-      {currentUser.role === "manager" && (
+      {isManager && (
         <button onClick={() => navigate("/home/vacationPackages/add")}>
           הוסף חבילה
         </button>
       )}
-
       <div className="packages-grid">
         {filteredPackages.map((vacationPackage) => (
           <div
@@ -67,8 +66,7 @@ const VacationPackages = () => {
             </h2>
             <h2>{vacationPackage.name}</h2>
             <p>{vacationPackage.description}</p>
-             
-                       </div>
+            </div>
        ))}
       </div>
     </>

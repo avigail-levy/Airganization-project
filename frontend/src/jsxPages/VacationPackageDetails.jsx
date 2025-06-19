@@ -1,12 +1,16 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import './css/VacationPackagesDetails.css';
 import { useUserContext } from './UserContext';
+import LoginPopup from './LoginPopup';
+import { useState } from 'react';
 
 const VacationPackagesDetails = () => {
   const location = useLocation();
   const{currentUser}=useUserContext();
   const vacationPackage = location.state;
   const navigate = useNavigate();
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
+
 
   if (!vacationPackage) {
     return <p>שגיאה בטעינת החבילה. נא לחזור לדף הקודם.</p>;
@@ -28,6 +32,14 @@ const VacationPackagesDetails = () => {
     day: 'numeric'
   });
 };
+const handleOrder = () => {
+  if (!currentUser) {
+    setShowLoginPopup(true);
+  } else {
+    navigate(`/home/vacationPackages/${vacationPackage.id}/order`, { state: vacationPackage } );
+  }
+};
+const isManager = currentUser && currentUser.role === "manager";
   return (
     <div className="package-details-container">
       <h1 className="title">{name}</h1>
@@ -36,24 +48,25 @@ const VacationPackagesDetails = () => {
       className="package-image"/>
   )}
       <div className="details-grid">
-        <p>📅 <strong>תאריכים:</strong> {formatDate(vacationPackage.start_date)} - {formatDate(vacationPackage.end_date)}</p>
-        <p>📦 <strong>מקומות פנויים:</strong> {vacationPackage.available_slots}</p>
-        <p>👤 <strong>מחיר למבוגר:</strong> ₪{vacationPackage.adult_price}</p>
-        <p>👶 <strong>מחיר לילד:</strong> ₪{vacationPackage.child_price}</p>
+        <p>📅 <strong>תאריכים:</strong> {formatDate(start_date)} - {formatDate(end_date)}</p>
+        <p>📦 <strong>מקומות פנויים:</strong> {available_slots}</p>
+        <p>👤 <strong>מחיר למבוגר:</strong> ₪{adult_price}</p>
+        <p>👶 <strong>מחיר לילד:</strong> ₪{child_price}</p>
        
       </div>
       <p className="description">{description}</p>
 
       <div className="button-row">
-        <button className="action-btn" onClick={(e) => { 
+        {isManager && <button className="action-btn" onClick={(e) => { 
                navigate(`/home/vacationPackages/${vacationPackage.id}`),{state:vacationPackage.id};}}>עריכה</button>
-        <button className="action-btn" onClick={() => navigate('trips')}>הצג טיולים</button>
-       {currentUser.role==='customer' && 
-       <button className="action-btn" 
-       onClick={() => navigate(`/home/vacationPackages/${vacationPackage.id}/order`, { state: vacationPackage })}>
-    הזמן חבילה
-  </button>}
+       }
+         <button className="action-btn" onClick={() => navigate('trips')}>הצג טיולים</button>
+       {!isManager && 
+     <button className="action-btn" onClick={handleOrder}>הזמן חבילה </button>
+  }
       </div>
+      {showLoginPopup && <LoginPopup onClose={() => setShowLoginPopup(false)} />}
+
     </div>
   );
 };

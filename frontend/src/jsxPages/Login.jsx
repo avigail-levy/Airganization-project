@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import { useUserContext }from './UserContext';
 import fetchData from '../service/FetchData';
 
@@ -7,6 +7,7 @@ const Login=()=> {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
   const { setCurrentUser } = useUserContext();
   
   const btnLogin = async (e) => {
@@ -19,7 +20,9 @@ const Login=()=> {
    if (response.user.length!=0) {
     setCurrentUser(response.user);
     // const idUser = JSON.parse(localStorage.getItem('currentUser'));
-    navigate(`/home`);
+    // const redirectTo = location.state?.from;
+    // navigate(redirectTo);
+     navigate(`/home`);
   } 
   else {
     alert('שם משתמש או סיסמה שגויים');

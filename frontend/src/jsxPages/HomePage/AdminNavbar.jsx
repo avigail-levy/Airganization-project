@@ -11,7 +11,9 @@ const AdminNavbar = () => {
     return(
          <> 
          {btnArr.map((btn, index) => (
-        <button key={index} onClick={() => navigate(btn.path)}>
+        <button key={index} 
+        className="nav-btn"
+        onClick={() => navigate(btn.path)}>
           {btn.label}
         </button>
       ))}

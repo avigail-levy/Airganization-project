@@ -79,7 +79,7 @@ export async function updateUser(req, res) {
   console.log('update user',req.body);
    const { body } = req;
   //  const body = req.body;
-  console.log('bodyyyyyyyyyyyyyyyy',body);
+  
   try {
     const updatedUser = await usersMod.updateUser(body);
     if (!updatedUser) {
