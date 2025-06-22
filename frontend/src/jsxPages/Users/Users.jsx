@@ -33,7 +33,7 @@ const Users = () => {
         {users.map((user) => (
           <div className="user-card" key={user.id}>
             <h3>{user.name}</h3>
-            <p><strong>שם משתמש:</strong> {user.user_name}</p>
+            <p><strong>שם משתמש:</strong> {user.username}</p>
             <p><strong>טלפון:</strong> {user.phone}</p>
             <p><strong>אימייל:</strong> {user.email}</p>
             <p><strong>תפקיד:</strong> {user.role === 'manager' ? 'מנהל' : 'לקוח'}</p>

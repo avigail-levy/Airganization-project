@@ -14,12 +14,12 @@ const Login=()=> {
   e.preventDefault(); 
   try{
     const response = await fetchData('users/login','POST',{username,password});
+    console.log('response',response);
      if (response.token) {
       localStorage.setItem("token", response.token); // שמירת הטוקן
      }
-   if (response.user.length!=0) {
+   if (response.user) {
     setCurrentUser(response.user);
-    // const idUser = JSON.parse(localStorage.getItem('currentUser'));
     // const redirectTo = location.state?.from;
     // navigate(redirectTo);
      navigate(`/home`);

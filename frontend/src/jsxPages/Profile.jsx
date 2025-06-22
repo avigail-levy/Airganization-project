@@ -8,16 +8,16 @@ const Profile = () => {
     const btnLogout = () => {
         setCurrentUser(null);
         localStorage.removeItem("token");
-        navigate('/login');
+        navigate('/home');
     };
 
     const btnUpdate = () => {
-    navigate('/home/update', { state: { isUpdate: true } });
+        navigate('/home/update', { state: { isUpdate: true } });
     };
 
 
     if (!currentUser) {
-        setCurrentUser({});
+     //   setCurrentUser({});
         return null;
     }
 
@@ -26,13 +26,13 @@ const Profile = () => {
             <h1>פרופיל אישי</h1>
             <div style={{ direction: 'rtl' }}>
                 <p><strong>שם:</strong> {currentUser.name}</p>
-                <p><strong>שם משתמש:</strong> {currentUser.user_name}</p>
+                <p><strong>שם משתמש:</strong> {currentUser.username}</p>
                 <p><strong>טלפון:</strong> {currentUser.phone}</p>
                 <p><strong>כתובת אימייל:</strong> {currentUser.email}</p>
             </div>
 
             <br />
-             <button onClick={btnLogout}>התנתק</button>
+            <button onClick={btnLogout}>התנתק</button>
             <button onClick={btnUpdate}>עדכן פרטים</button>
         </>
     );

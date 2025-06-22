@@ -3,7 +3,12 @@ import { Outlet } from 'react-router-dom'
 
 function App() {
   return (
-    <> <Outlet /></>
+    <>
+    <input type='file'/>
+    <input type='color'/>
+
+     <Outlet />
+    </>
   )
 }
 export default App

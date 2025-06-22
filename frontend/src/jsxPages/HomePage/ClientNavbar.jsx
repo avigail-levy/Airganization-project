@@ -2,7 +2,7 @@ import { useNavigate,Outlet } from "react-router-dom";
 import { useUserContext } from "../UserContext";
 import LoginPopup from "../LoginPopup";
 import { useState } from "react";
-import ifCurrentUser from "../../service/GlobalFuncss";
+import ifCurrentUser from "../../service/GlobalFuncs";
 
 const btnArr = [
   { label: 'הזמנות שלי', path: 'myOrders' },
@@ -13,17 +13,6 @@ const ClientNavbar = () => {
   const navigate=useNavigate();
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const { currentUser } = useUserContext();
-  //  const clickNavbar =(path) =>{
-  //    if (!currentUser) {
-  //     console.log("click");
-  //     console.log('currentUser',currentUser);
-  //     setShowLoginPopup(true);
-      
-  //   } 
-  //  else {
-  //    navigate(path)
-  //   }
-  // };
 
     return(
          <> 

@@ -30,6 +30,7 @@ export async function getAllUser(req, res) {
 
 export async function getUserByUserNamePassword(req, res) {
   const body = req.body;
+  console.log('body',body); 
   try {
     const user = await usersMod.getUserByUserNamePassword(body);
     console.log(user);
@@ -43,7 +44,7 @@ export async function getUserByUserNamePassword(req, res) {
     );
 
     // שליחת פרטי המשתמש + הטוקן
-     res.json({ user: { id: user.id, name:user.name, user_name:user.user_name, phone:user.phone, 
+     res.json({ user: { id: user.id, name:user.name, username:user.username, phone:user.phone, 
       email:user.email,role: user.role,}, token });
 
 
@@ -52,8 +53,8 @@ export async function getUserByUserNamePassword(req, res) {
   }
 }
 export async function registerUser(req, res) {
-  const body = req.body;
   console.log('req.body',req.body);
+  const body = req.body;
   try {
     const user = await usersMod.registerUser(body);
     console.log('user',user);
@@ -68,8 +69,7 @@ export async function registerUser(req, res) {
 
     console.log('userrrrrr',user.role,user.id);
     // שליחת פרטי המשתמש + הטוקן
-    res.json({ user: { id: user.id, name:user.name, user_name:user.user_name, phone:user.phone, 
-      email:user.email,role: user.role,}, token });
+     res.json({ user, token });
 
   } catch (error) {
     res.status(500).json({ message: 'Error fetching user', error });

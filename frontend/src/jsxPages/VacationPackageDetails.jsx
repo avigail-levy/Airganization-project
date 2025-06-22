@@ -3,6 +3,7 @@ import './css/VacationPackagesDetails.css';
 import { useUserContext } from './UserContext';
 import LoginPopup from './LoginPopup';
 import { useState } from 'react';
+import fetchData from '../service/FetchData';
 
 const VacationPackagesDetails = () => {
   const location = useLocation();
@@ -32,12 +33,22 @@ const VacationPackagesDetails = () => {
     day: 'numeric'
   });
 };
+const deleteVacationPackage = async () => {
+  try{
+    fetchData(`vacationPackages/${vacationPackage.id}`, 'DELETE');
+    navigate('/home/vacationPackages');
+  } catch (error) {
+    console.error("Error deleting vacation package:", error);
+  }
+}
 const handleOrder = () => {
   if (!currentUser) {
     setShowLoginPopup(true);
-  } else {
-    navigate(`/home/vacationPackages/${vacationPackage.id}/order`, { state: vacationPackage } );
+    return false;
   }
+  else{
+      return true;
+    }
 };
 const isManager = currentUser && currentUser.role === "manager";
   return (
@@ -62,8 +73,11 @@ const isManager = currentUser && currentUser.role === "manager";
        }
          <button className="action-btn" onClick={() => navigate('trips')}>הצג טיולים</button>
        {!isManager && 
-     <button className="action-btn" onClick={handleOrder}>הזמן חבילה </button>
-  }
+     <button className="action-btn" onClick={handleOrder&&(() => {
+        navigate(`/home/vacationPackages/${vacationPackage.id}/order`, { state: vacationPackage } )
+     })}>הזמן חבילה </button>}
+      {isManager && 
+     <button className="action-btn" onClick={handleOrder&&(() => {deleteVacationPackage()})}>מחק</button>}
       </div>
       {showLoginPopup && <LoginPopup onClose={() => setShowLoginPopup(false)} />}
 

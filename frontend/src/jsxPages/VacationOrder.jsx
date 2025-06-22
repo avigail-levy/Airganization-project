@@ -60,13 +60,14 @@ const VacationOrder = () => {
     e.preventDefault();
     console.log('cu',currentUser.id)
     console.log('הוזמנה חבילה עם הנתונים הבאים:', formData);
-    const response = fetchData('orders','POST',formData);
-    alert('החבילה נוספה בהצלחה');
+    fetchData('orders/order','POST',formData);
+    alert('הזמנתך נוספה בהצלחה');
   };
 
   return (
     <div className="vacation-order-container">
       <h2>הזמנת חבילת נופש</h2>
+      <h3>{vacationPackage.name}</h3>
       <form onSubmit={handleSubmit} className="vacation-order-form">
         <label>
           מספר משתתפים מבוגרים:
@@ -101,10 +102,7 @@ const VacationOrder = () => {
             onChange={handleChange}
           />
         </label>
-
-        {/* הצגת המחיר הכולל */}
         <p><strong>מחיר כולל להזמנה:</strong> ₪{formData.final_price}</p>
-
         <button>שלח הזמנה</button>
       </form>
     </div>

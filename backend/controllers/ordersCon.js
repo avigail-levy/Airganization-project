@@ -24,6 +24,7 @@ export async function getOrdersByUserId(req, res) {
   }
 } 
 export async function getAllOrders(req, res) {
+  if(req.user.role !== 'manager') return res.status(401).json({ message: 'Access denied. Managers only.' });
   try {
     const orders = await ordersMod.getAllOrders();
     if (!orders) return res.status(404).json({ message: 'orders not found' });

@@ -37,7 +37,7 @@ async function getAllOrders() {
 }
 async function getOrdersByUserId(id) {
   try {
-    const sql = ' Select * From invitations Where user_id=?';
+    const sql = 'SELECT * FROM user_orders_view WHERE user_id = ?';
     const [rows] = await connection.query(sql,[id]);
     return rows;
   } catch (error) {

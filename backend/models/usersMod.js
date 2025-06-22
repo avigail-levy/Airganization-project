@@ -41,7 +41,8 @@ async function registerUser(body) {
     const sql = 'INSERT INTO users (name,user_name,phone,email,role,password) VALUES (?, ?, ?, ?, ?, ?)';
     const [result] = await connection.query(sql, [name,username,phone,email,role,password]);
     const id= result.insertId;
-    return {id,role};
+    return getUserById(id)
+    //return {id,role};
   }
    catch (error) {
     throw error;
@@ -49,8 +50,8 @@ async function registerUser(body) {
 }
 async function updateUser(body) {
   // console.log("moddddd",body);
-  const { id ,name, user_name, phone, email } = body;
-  console.log(id,name, user_name, phone, email);
+  const { id ,name, username, phone, email } = body;
+  console.log(id,name, username, phone, email);
   try {
     const sql = `
       UPDATE users
@@ -58,13 +59,13 @@ async function updateUser(body) {
       WHERE id = ?
     `;
 
-    const [result] = await connection.query(sql, [name, user_name, phone, email,id]);
+    const [result] = await connection.query(sql, [name, username, phone, email,id]);
 
     if (result.affectedRows === 0) {
       return null; // אם לא נמצא משתמש עם id הזה
     }
 
-    return { id, name, user_name, phone, email };
+    return { id, name, username, phone, email };
   } catch (error) {
     throw error;
   }

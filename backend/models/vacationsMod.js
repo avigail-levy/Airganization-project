@@ -57,5 +57,26 @@ async function updateVacation(vacation) {
     throw error;
   }
 }
-export default {getVacationsPackages,createVacation,getVacationPackageById,updateVacation};
+async function getVacationsPackagesForHome() {
+  try {
+    const sql = `SELECT * FROM vacation_package_view` ;
+    const [rows] = await connection.query(sql);
+    return rows;
+  }
+   catch (error) {
+    throw error;
+  }
+}
+async function deleteVacationPackage(id) {
+  try {
+    const sql = `DELETE FROM vacation_packages WHERE id = ?`;
+    const [rows] = await connection.query(sql, [id]);
+    return rows;
+  }
+   catch (error) {
+    throw error;
+  }
+}
+export default {getVacationsPackages,createVacation,getVacationPackageById,updateVacation
+    ,deleteVacationPackage,getVacationsPackagesForHome};
 

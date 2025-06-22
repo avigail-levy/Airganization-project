@@ -13,6 +13,9 @@ import cors from 'cors';
 
 const app = express();
 app.use(cors());
+app.use(cors({
+  exposedHeaders: ['x-new-token'] // ← זה מאפשר ללקוח לראות את הכותרת
+}));
 app.use(express.json());
 
 app.use('/api/users', usersRoutes);
