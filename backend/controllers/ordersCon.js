@@ -12,8 +12,9 @@ export async function createOrder(req, res) {
     res.status(500).json({ message: 'Error fetching orders', error });
   }
 } 
-export async function getOrdersByUserId(req, res) {
-  const id=req.user.id;
+export async function getOrdersByUserId(req, res){
+  const id = req.user.id;
+  console.log(id);
   try {
     const orders = await ordersMod.getOrdersByUserId(id);
     if (!orders) return res.status(404).json({ message: 'orders not found' });
@@ -24,7 +25,6 @@ export async function getOrdersByUserId(req, res) {
   }
 } 
 export async function getAllOrders(req, res) {
-  if(req.user.role !== 'manager') return res.status(401).json({ message: 'Access denied. Managers only.' });
   try {
     const orders = await ordersMod.getAllOrders();
     if (!orders) return res.status(404).json({ message: 'orders not found' });
@@ -34,4 +34,16 @@ export async function getAllOrders(req, res) {
     res.status(500).json({ message: 'Error fetching orders', error });
   }
 } 
+export async function patchOrder(req, res) {
+  const {id }= req.body;
+  try {
+    const order = await ordersMod.patchOrder(id);
+    if (!order) return res.status(404).json({ message: 'orders not found' });
+    res.json(order);
+  }
+   catch (error) {
+    res.status(500).json({ message: 'Error fetching orders', error });
+  }
+  
+}
 

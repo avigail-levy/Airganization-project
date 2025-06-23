@@ -19,7 +19,7 @@ async function fetchData(navigateString, methodType = "GET", dataContent = null)
   // בדיקת כותרת – האם חזר טוקן חדש
   const newToken = response.headers.get('x-new-token');
 if (newToken) {
-  console.log("🔄 Token was refreshed:", newToken);
+  console.log("🔄 Tokien was refreshed:", newToken);
   localStorage.setItem('token', newToken);
 } else {
   console.log("🔍 No new token in response.");

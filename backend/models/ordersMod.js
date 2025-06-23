@@ -2,9 +2,10 @@ import connection from '../database/db.js';
 
 async function createOrder(order) {
   console.log('orderr',order.user_id);
+  console.log('orderr',order.vacationId);
   const {
     vacationId,user_id,sum_adult_parcipants,sum_child_parcipants,
-    full_board,discount_code_id,final_price} = order;
+    full_board,discount_code_id,final_price,isActive} = order;
   try {
     const sql = `
       INSERT INTO invitations (
@@ -14,11 +15,11 @@ async function createOrder(order) {
         sum_child_parcipants,
         full_board,
         discount_code_id,
-        final_price
-      ) VALUES (?, ?, ?, ?, ?, ?, ?)
+        final_price,isActive
+      ) VALUES (?, ?, ?, ?, ?, ?, ?,?)
     `;
     const values = [ vacationId,user_id, sum_adult_parcipants,sum_child_parcipants,
-      full_board,discount_code_id || null,final_price];
+      full_board,discount_code_id || null,final_price,isActive];
     
     const [result] = await connection.query(sql, values);
     return { insertId: result.insertId };
@@ -28,7 +29,7 @@ async function createOrder(order) {
 }
 async function getAllOrders() {
   try {
-    const sql = ' Select * From invitations';
+    const sql = ' Select * From user_orders_view';
     const [rows] = await connection.query(sql);
     return rows;
   } catch (error) {
@@ -44,7 +45,16 @@ async function getOrdersByUserId(id) {
     throw error;
   }
 }
+async function patchOrder(id) {
+  try {
+    const sql = 'UPDATE invitations SET isActive = false WHERE id = ?';
+    const [rows] = await connection.query(sql, [id]);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
 export default {
-     createOrder,getAllOrders,getOrdersByUserId
+     createOrder,getAllOrders,getOrdersByUserId,patchOrder
      };
 

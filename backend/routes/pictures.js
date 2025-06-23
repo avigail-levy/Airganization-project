@@ -1,10 +1,9 @@
 import express from 'express';
-import { getPicturesByIdVacation } from '../controllers/picturesCon.js';
-import { verifyToken } from '../middlewares/verifyToken.js';
-
+import { getPicturesByPackageId } from '../controllers/picturesCon.js';
 
 const router = express.Router();
-router.get('/idVacation', verifyToken,getPicturesByIdVacation);
 
+router.get('/:packageId', getPicturesByPackageId);
 
 export default router;
+

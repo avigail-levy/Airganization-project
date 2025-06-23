@@ -35,20 +35,25 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .action-btn {
-   background-color: #007bff;
+  background-color: #007bff;
   color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .action-btn:hover {
-  background-color: #ccc;
-}
-
-.action-btn.primary:hover {
   background-color: #0056b3;
 }
+
+/* תמונה עם מעבר חלק */
 .package-image {
   width: 100%;
   max-width: 600px;
@@ -56,4 +61,56 @@
   border-radius: 12px;
   margin: 20px 0;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* עיצוב סליידר */
+.image-slider {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+/* חיצים יפים לבנים על התמונה */
+.slider-arrow {
+  /* all: unset; */
+  position: absolute;
+  top: 50%;
+   transform: translateY(-50%); 
+  font-size: 2.8rem;
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+  padding: 0;
+  line-height: 1;
+
+}
+
+.slider-arrow:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+.slider-arrow.left {
+  left: 12px;
+}
+
+.slider-arrow.right {
+  right: 12px;
+}
+/* מניעת אפקט כחול בלחיצה או מעבר */
+.slider-arrow:focus,
+.slider-arrow:active,
+.slider-arrow:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  transform: translateY(-50%) !important;
+}
+.slider-arrow:focus-visible {
+  outline: none;
 }

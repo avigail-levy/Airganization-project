@@ -128,14 +128,10 @@ const VacationPackages = ({ isHomePage = false }) => {
             className="package-card clickable"
             key={vacationPackage.id}
             onClick={() =>
-              navigate(`/home/vacationDetails/${vacationPackage.id}`, {
-                state: vacationPackage,})} >
-                  
+              navigate(`/home/vacationDetails`, { state: vacationPackage,})} >
             {vacationPackage.image_url && (
-              <img
-                src={vacationPackage.image_url}
-                alt={vacationPackage.alt_text}
-              />
+              <img src={`http://localhost:3000${vacationPackage.image_url}`} 
+              alt={vacationPackage.alt_text} />
             )}
             <h2>
               {vacationPackage.country_name} in {vacationPackage.continent_name}

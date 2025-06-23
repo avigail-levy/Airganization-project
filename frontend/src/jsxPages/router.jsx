@@ -11,7 +11,7 @@ import Trips from './Trips.jsx';
 import Register from './Register.jsx';
 import AddManager from './Users/AddManager.jsx';
 import VacationPackagesDetails from './VacationPackageDetails.jsx';
-import VacationOrder from './VacationOrder.jsx';
+import AddUpdateVacationOrder from './AddUpdateVacationOrder.jsx';
 import ContactForm from "./ContactForm.jsx";
 import AddUpdateVacation from './AddUpdateVacation.jsx';
 import About from './About.jsx';
@@ -38,10 +38,10 @@ const router = createBrowserRouter([
           { path: 'myOrders', element: <Orders /> },
           { path: 'vacationPackages/add', element: <AddUpdateVacation /> },
           { path: 'ContactForm', element: <ContactForm /> },
-          { path: 'vacationPackages/:vacationId', element: <AddUpdateVacation /> },
-          { path: 'vacationPackages/:vacationId/order', element: <VacationOrder /> },
+          { path: 'vacationPackages/update', element: <AddUpdateVacation /> },
+          { path: 'vacationPackages/order', element: <AddUpdateVacationOrder /> },
           {
-            path: 'vacationDetails/:vacationId', element: <VacationPackagesDetails />,
+            path: 'vacationDetails', element: <VacationPackagesDetails />,
             children: [
               { path: 'trips', element: <Trips /> }
             ]

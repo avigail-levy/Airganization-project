@@ -2,7 +2,7 @@ import { useState ,useEffect } from 'react';
 import './css/AddUpdateVacation.css';
 import { useUserContext } from "./UserContext";
 import fetchData from "../service/FetchData";
-import { useParams ,useNavigate} from 'react-router-dom';
+import { useLocation ,useNavigate} from 'react-router-dom';
 
 
 const AddUpdateVacation = () => {
@@ -11,7 +11,8 @@ const AddUpdateVacation = () => {
   const [ selectedContinent, setSelectedContinent ] = useState('');
   const [ destinations, setDestinations ] = useState([]);
   const navigate=useNavigate();
-  const { vacationId } = useParams();
+  const location = useLocation();
+  const vacationId = location.state?.id;
   const [ formData, setFormData ] = useState({
     id: vacationId ||'',
     name: '',
@@ -22,7 +23,8 @@ const AddUpdateVacation = () => {
     child_price: '',
     manager_id: currentUser.id,
     destination_id: '',
-    available_slots: ''
+    available_slots: '',
+    isActive:true
   });
   const loadDestinationsForContinent = async (continentId) => {
     try {

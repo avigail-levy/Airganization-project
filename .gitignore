@@ -1,5 +1,8 @@
 # Ignore environment files
 .env
+*.docx
+*.jpg
+*.png
 
 # Ignore node_modules folder
 node_modules/

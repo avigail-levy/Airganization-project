@@ -58,10 +58,10 @@ export async function getVacationsPackagesForHome(req, res) {
     res.status(500).json({ message: 'Error fetching vacations', error });
   }
 }
-export async function deleteVacationPackage(req, res) {
-  const id = req.params.id;
+export async function patchVacationPackage(req, res) {
+  const {id} = req.body;
   try {
-    const vacation = await vacationsMod.deleteVacationPackage(id);
+    const vacation = await vacationsMod.patchVacationPackage(id);
     if (!vacation) return res.status(404).json({ message: 'vacations not found' });
     res.json(vacation);
   }

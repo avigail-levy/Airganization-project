@@ -22,16 +22,17 @@ async function getVacationPackageById(id) {
 }
 async function createVacation(vacation) {
   const{name ,start_date ,end_date ,description,adult_price ,
-  child_price,manager_id ,destination_id,available_slots}=vacation;
+  child_price,manager_id ,destination_id,available_slots,isActive}=vacation;
   try {
    const sql = `
       INSERT INTO vacation_packages
-      (name, start_date, end_date, description, adult_price, child_price, manager_id, destination_id, available_slots)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      (name, start_date, end_date, description, adult_price, child_price, manager_id,
+       destination_id, available_slots,isActive)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)
     `;
     const [rows] = await connection.query(sql,
       [name,start_date,end_date,description,adult_price,
-      child_price,manager_id,destination_id,available_slots]);
+      child_price,manager_id,destination_id,available_slots,isActive]);
     return rows;
   }
    catch (error) {
@@ -41,7 +42,6 @@ async function createVacation(vacation) {
 async function updateVacation(vacation) {
   const{id,name ,start_date ,end_date ,description,adult_price ,
     child_price,manager_id ,destination_id,available_slots} = vacation;
-    console.log('vacation',id,name,start_date ,end_date ,description,adult_price );
   try {
    const sql = `
       UPDATE  vacation_packages 
@@ -59,7 +59,12 @@ async function updateVacation(vacation) {
 }
 async function getVacationsPackagesForHome() {
   try {
-    const sql = `SELECT * FROM vacation_package_view` ;
+    const sql = `
+      SELECT * 
+      FROM vacation_package_view 
+      ORDER BY RAND() 
+      LIMIT 8
+    `;
     const [rows] = await connection.query(sql);
     return rows;
   }
@@ -67,16 +72,15 @@ async function getVacationsPackagesForHome() {
     throw error;
   }
 }
-async function deleteVacationPackage(id) {
+async function patchVacationPackage(id) {
   try {
-    const sql = `DELETE FROM vacation_packages WHERE id = ?`;
+    const sql = `UPDATE vacation_packages SET isActive = false WHERE id = ?`;
     const [rows] = await connection.query(sql, [id]);
     return rows;
-  }
-   catch (error) {
+  } catch (error) {
     throw error;
   }
 }
 export default {getVacationsPackages,createVacation,getVacationPackageById,updateVacation
-    ,deleteVacationPackage,getVacationsPackagesForHome};
+    ,patchVacationPackage,getVacationsPackagesForHome};
 

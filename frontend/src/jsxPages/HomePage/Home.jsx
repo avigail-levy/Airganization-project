@@ -38,7 +38,6 @@ const Home = () => {
   // };
     return(
          <>
-
            <div className="navbar">
                   {navBtnArr.map((btn, index) => (
              <button key={index} 
@@ -53,6 +52,7 @@ const Home = () => {
                </div>
                <div>
               </div>
+              <img src="http://localhost:3000/images/logo.png" alt="לוגו האתר" style={{ width: "100px" }} />
                {showLoginPopup && <LoginPopup onClose={() => setShowLoginPopup(false)} />}
                 <Outlet />   
          </>);}
