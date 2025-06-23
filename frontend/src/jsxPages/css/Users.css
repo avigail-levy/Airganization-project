@@ -50,3 +50,8 @@
 .add-btn:hover {
   background-color: #27ae60;
 }
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  color: #05986c;
+}

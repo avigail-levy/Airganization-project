@@ -110,10 +110,7 @@ const VacationPackagesDetails = () => {
         {isManager &&
           <button className="action-btn" onClick={() => navigate(`/home/vacationPackages/update`, { state: vacationPackage.id })}>
             עריכה
-          </button>
-        }
-
-        <button className="action-btn" onClick={() => navigate('trips')}>הצג טיולים</button>
+          </button>}
 
         {!isManager &&
           <button className="action-btn" onClick={() => {
@@ -124,7 +121,6 @@ const VacationPackagesDetails = () => {
             הזמן חבילה
           </button>
         }
-
         {isManager &&
           <button className="action-btn" onClick={() => {
             if (handleOrder()) {

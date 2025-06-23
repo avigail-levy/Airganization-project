@@ -6,8 +6,9 @@
   align-items: center;
   padding: 10px;
   gap: 10px;
-  background-color: #e3f2fd;
+  /* background-color: #e3f2fd; */
   overflow-x: auto;
+  
 }
 
 /* כפתורי ניווט */
@@ -15,17 +16,17 @@
   margin: 0;
   padding: 8px 16px;
   font-size: 0.9rem;
-  border: none;
   border-radius: 10px;
-  background-color: #0d6efd;
+  background-color: #00BFA6;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
 }
 
+
 .nav-btn:hover {
-  background-color: #0b5ed7;
+ background-color: #1DE9B6;
 }
 
 /* כפתור פרופיל עגול */
@@ -35,18 +36,19 @@
   height: 42px;
   font-size: 1rem;
   font-weight: bold;
-  background-color: #0d6efd;
+  background-color: #00BFA6;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  border: 2px solid rgb(14, 95, 3); /* הוספה של מסגרת שחורה */
 }
 
 /* סגנון כללי לעמוד */
 body {
   font-family: Arial, sans-serif;
-  /* background-color: #f6a364; */
+ background-color: #E0F7FA;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -56,7 +58,7 @@ body {
 h1 {
   text-align: center;
   margin: 20px 0;
-  color: #333;
+  color: #05986c;
 }
 
 /* רשימת אלבומים ותמונות */
@@ -81,7 +83,7 @@ li {
 /* קישורים */
 a {
   text-decoration: none;
-  color: #007bff;
+  color: #00BFA6;
   font-weight: bold;
 }
 
@@ -91,7 +93,7 @@ a:hover {
 
 /* כפתורים כלליים */
 button {
-  background-color: #007bff;
+  background-color: #00BFA6;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -103,7 +105,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+background-color: #1DE9B6;
 }
 
 button:disabled {

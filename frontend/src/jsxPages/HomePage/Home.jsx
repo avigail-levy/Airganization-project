@@ -52,7 +52,7 @@ const Home = () => {
                </div>
                <div>
               </div>
-              <img src="http://localhost:3000/images/logo.png" alt="לוגו האתר" style={{ width: "100px" }} />
+              {/* <img src="http://localhost:3000/images/logo.png" alt="לוגו האתר" style={{ width: "100px" }} /> */}
                {showLoginPopup && <LoginPopup onClose={() => setShowLoginPopup(false)} />}
                 <Outlet />   
          </>);}

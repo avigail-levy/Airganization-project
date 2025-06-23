@@ -37,3 +37,8 @@
   font-size: 1.05rem;
   line-height: 1.8;
 }
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  color: #05986c;
+}

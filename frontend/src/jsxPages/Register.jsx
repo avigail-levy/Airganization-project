@@ -47,10 +47,14 @@ const RegisterOrUpdate = () => {
             setError("מספר טלפון חייב להכיל 9 או 10 ספרות");
             return false;
         }
-        if (valuesInput.password.length < 6) {
+        if(!isUpdate)
+        {
+            if (valuesInput.password.length < 6) {
             setError("סיסמה חייבת להכיל לפחות 6 תווים");
             return false;
+        } 
         }
+       
         if (!valuesInput.email.includes('@')) {
             setError("כתובת אימייל לא תקינה");
             return false;

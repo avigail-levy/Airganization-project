@@ -79,3 +79,8 @@
     font-size: 15px;
   }
 }
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  color: #05986c;
+}

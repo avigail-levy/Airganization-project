@@ -12,6 +12,7 @@ export async function getVacationsPackages(req, res) {
 }
 export async function getVacationPackageById(req, res) {
   const id = req.params.id;
+  console.log('id',id);
   try {
     const vacation = await vacationsMod.getVacationPackageById(id);
     if (!vacation) return res.status(404).json({ message: 'vacation not found' });

@@ -12,7 +12,7 @@ body {
 h1 {
   text-align: center;
   margin: 20px 0;
-  color: #333;
+  color: #05986c;
 }
 
 /* רשימת אלבומים ותמונות */
@@ -47,7 +47,7 @@ a:hover {
 
 כפתורים
 button {
-  background-color: #007bff;
+  background-color: #08192b;
   color: white;
   border: none;
   padding: 10px 15px;

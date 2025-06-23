@@ -134,10 +134,10 @@ const VacationPackages = ({ isHomePage = false }) => {
               alt={vacationPackage.alt_text} />
             )}
             <h2>
-              {vacationPackage.country_name} in {vacationPackage.continent_name}
+              {vacationPackage.country_name}
             </h2>
             <h2>{vacationPackage.name}</h2>
-            <p>{vacationPackage.description}</p>
+           
           </div>
         ))}
       </div>

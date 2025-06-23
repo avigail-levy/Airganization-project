@@ -10,9 +10,10 @@ const AddUpdateVacation = () => {
   const [ continents, setContinents ] = useState([]);
   const [ selectedContinent, setSelectedContinent ] = useState('');
   const [ destinations, setDestinations ] = useState([]);
+  const [imageFile, setImageFile] = useState(null);
   const navigate=useNavigate();
   const location = useLocation();
-  const vacationId = location.state?.id;
+  const vacationId = location.state;
   const [ formData, setFormData ] = useState({
     id: vacationId ||'',
     name: '',
@@ -42,6 +43,7 @@ const AddUpdateVacation = () => {
   useEffect(() => {
     console.log('currentUser',currentUser.id);
     getAllContinents();
+     console.log('vacationId',vacationId);
     if(vacationId)
     {
       getVacationById(vacationId);
@@ -50,6 +52,7 @@ const AddUpdateVacation = () => {
 
   const getVacationById = async (vacationId) => {
     try {
+      console.log('vacationId',vacationId);
       const response = await fetchData(`vacationPackages/${vacationId}`);
       const cleaned = {
   ...response,
@@ -63,6 +66,7 @@ setFormData(cleaned);
   }
   const getAllContinents = async () => {
       try {
+        console.log('continents');
         const response = await fetchData('continents');
         setContinents(response);
         if (response.length > 0) {
@@ -137,7 +141,12 @@ setFormData(cleaned);
     e.preventDefault();
    if(checkFormat()) {
     console.log('שליחת טופס:', formData);
-    fetchData('vacationPackages/add','POST',formData);
+    try{
+          fetchData('vacationPackages/add','POST',formData);
+    }
+    catch(error){
+      console.log(error);
+    }
     alert('החבילה נוספה בהצלחה');
     navigate('/home/vacationPackages');
     
@@ -209,6 +218,9 @@ setFormData(cleaned);
             ))}
           </select>
         </label>
+        {!vacationId &&<label>העלאת תמונה:
+        <input type="file" name="image" onChange={(e) => setImageFile(e.target.files[0])} />
+        </label>}
         {vacationId ? <button className="AddUpdate-btn" onClick={handleUpdate}>עדכן חבילה</button> :
         <button className="AddUpdate-btn" onClick={handleAdd}>הוסף חבילה</button>}
       </form>
