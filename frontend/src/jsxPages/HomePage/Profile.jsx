@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useUserContext } from "./UserContext";
+import { useUserContext } from "../UserContext";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -26,7 +26,7 @@ const Profile = () => {
             <h1>פרופיל אישי</h1>
             <div style={{ direction: 'rtl' }}>
                 <p><strong>שם:</strong> {currentUser.name}</p>
-                <p><strong>שם משתמש:</strong> {currentUser.username}</p>
+                <p><strong>שם משתמש:</strong> {currentUser.user_name}</p>
                 <p><strong>טלפון:</strong> {currentUser.phone}</p>
                 <p><strong>כתובת אימייל:</strong> {currentUser.email}</p>
             </div>

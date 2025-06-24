@@ -44,12 +44,8 @@ export async function getUserByUserNamePassword(req, res) {
     );
 
     // שליחת פרטי המשתמש + הטוקן
-    res.json({
-      user: {
-        id: user.id, name: user.name, username: user.username, phone: user.phone,
-        email: user.email, role: user.role,
-      }, token
-    });
+    console.log('userrrrrr',user);
+    res.json({user, token });
 
 
   } catch (error) {

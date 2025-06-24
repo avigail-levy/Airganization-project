@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
-import './css/VacationOrder.css';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { useUserContext } from './UserContext';
-import fetchData from '../service/FetchData';
+import '../css/VacationOrder.css';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useUserContext } from '../UserContext';
+import fetchData from '../../service/FetchData';
 
 const AddUpdateVacationOrder = () => {
   const { currentUser } = useUserContext();
   const [pay, setPay] = useState(false);
   const location = useLocation();
   const vacationPackage = location.state;
+
   const navigate = useNavigate();
 
   if (!vacationPackage) {

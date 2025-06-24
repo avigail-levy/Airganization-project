@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useUserContext } from "./UserContext";
-import fetchData from "../service/FetchData";
-import './css/Orders.css'; 
+import { useUserContext } from "../UserContext";
+import fetchData from "../../service/FetchData";
+import '../css/Orders.css'; 
 import { useNavigate } from "react-router-dom";
 
 const Orders = () => {
@@ -73,7 +73,7 @@ const deleteOrder = async (orderId) => {
     <p><strong>מחיר סופי:</strong> ₪{order.final_price}</p>
     {role === 'manager' && <p><strong>שם המזמין:</strong> {order.user_name}</p>}
     {role==='customer' && <button onClick={() => {console.log(order.invitation_id), deleteOrder(order.invitation_id)}}>ביטול</button>
-    &&<button onClick={() => {navigate('/home/')}}>ערוך</button>}
+    &&<button onClick={() => {navigate('/home/order/update'),{ state: {order:order}}}}>ערוך</button>}
   </div>
 </div>
 

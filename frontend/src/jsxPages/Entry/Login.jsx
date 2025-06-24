@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
-import { useUserContext }from './UserContext';
-import fetchData from '../service/FetchData';
+import { useUserContext }from '../UserContext';
+import fetchData from '../../service/FetchData';
 
 const Login=()=> {
   const [username, setUsername] = useState('');

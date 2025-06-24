@@ -1,4 +1,4 @@
-import { useNavigate,Outlet, } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const btnArr = [
   { label: 'לקוחות', path: 'admin/users' },
   { label: 'הזמנות', path: 'admin/orders' }

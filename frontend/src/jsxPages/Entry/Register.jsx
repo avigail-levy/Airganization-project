@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import fetchData from "../service/FetchData";
-import { useUserContext } from "./UserContext";
+import fetchData from "../../service/FetchData";
+import { useUserContext } from "../UserContext";
 
 const RegisterOrUpdate = () => {
     const navigate = useNavigate();

@@ -1,20 +1,19 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import App from "../App.jsx";
-import { UserProvider } from "./UserContext";
+import { UserProvider } from "./UserContext.jsx";
 import Home from './HomePage/Home.jsx';
-import Login from "./Login.jsx";
+import Login from "./Entry/Login.jsx";
 import Users from './Users/Users.jsx';
-import Orders from './Orders.jsx';
-import VacationPackages from './VacationPackages.jsx';
-import Profile from './Profile.jsx';
-import Trips from './Trips.jsx';
-import Register from './Register.jsx';
+import Orders from './Orders/Orders.jsx';
+import VacationPackages from './Vacations/VacationPackages.jsx';
+import Profile from './HomePage/Profile.jsx';
+import Register from './Entry/Register.jsx';
 import AddManager from './Users/AddManager.jsx';
-import VacationPackagesDetails from './VacationPackageDetails.jsx';
-import AddUpdateVacationOrder from './AddUpdateVacationOrder.jsx';
-import ContactForm from "./ContactForm.jsx";
-import AddUpdateVacation from './AddUpdateVacation.jsx';
-import About from './About.jsx';
+import VacationPackagesDetails from './Vacations/VacationPackageDetails.jsx';
+import AddUpdateVacationOrder from './Orders/AddUpdateVacationOrder.jsx';
+import ContactForm from "./HomePage/ContactForm.jsx";
+import AddUpdateVacation from './Vacations/AddUpdateVacation.jsx';
+import About from './HomePage/About.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -40,13 +39,8 @@ const router = createBrowserRouter([
           { path: 'ContactForm', element: <ContactForm /> },
           { path: 'vacationPackages/update', element: <AddUpdateVacation /> },
           { path: 'vacationPackages/order', element: <AddUpdateVacationOrder /> },
-          {
-            path: 'vacationDetails', element: <VacationPackagesDetails />,
-            children: [
-              { path: 'trips', element: <Trips /> }
-            ]
-          },
-
+           { path: 'order/update', element: <AddUpdateVacationOrder /> },
+          { path: 'vacationDetails', element: <VacationPackagesDetails />},
           { path: 'profile', element: <Profile /> },
           { path: 'update', element: <Register /> }
         ]

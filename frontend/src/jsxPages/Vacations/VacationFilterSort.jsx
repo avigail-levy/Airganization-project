@@ -45,12 +45,11 @@ const VacationFilterSort = ({
     <div className="filter-sort-container">
       <input
         type="text"
-        placeholder="חפש חבילה..."
+        placeholder="חפש חבילה"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
 
-      <label>חפש לפי:</label>
       <select
         value={searchBy}
         onChange={(e) => setSearchBy(e.target.value)}
@@ -61,8 +60,8 @@ const VacationFilterSort = ({
           </option>
         ))}
       </select>
+      <label>חפש לפי</label>
 
-      <label>מיין לפי:</label>
       <select
         value={sortBy}
         onChange={(e) => setSortBy(e.target.value)}
@@ -73,6 +72,7 @@ const VacationFilterSort = ({
           </option>
         ))}
       </select>
+      <label>מיין לפי</label>
     </div>
   );
 };

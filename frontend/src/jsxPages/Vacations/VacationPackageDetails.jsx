@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import './css/VacationPackagesDetails.css';
-import { useUserContext } from './UserContext';
-import LoginPopup from './LoginPopup';
+import '../css/VacationPackagesDetails.css';
+import { useUserContext } from '../UserContext';
+import LoginPopup from '../Entry/LoginPopup';
 import { useState, useEffect } from 'react';
-import fetchData from '../service/FetchData';
+import fetchData from '../../service/FetchData';
 
 const VacationPackagesDetails = () => {
   const location = useLocation();

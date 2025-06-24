@@ -3,11 +3,9 @@ import { useUserContext } from "../UserContext";
 import AdminNavbar from './AdminNavbar';
 import ClientNavbar from './ClientNavbar';
 import { useState } from "react";
-import LoginPopup from "../LoginPopup";
+import LoginPopup from "../Entry/LoginPopup";
 import ifCurrentUser from "../../service/GlobalFuncs";
 import '../css/Home.css'
-import VacationPackages from "../VacationPackages";
-import { UserIcon } from '@heroicons/react/24/outline';
 
 
 const Home = () => {

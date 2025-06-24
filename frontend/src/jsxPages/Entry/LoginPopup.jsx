@@ -1,4 +1,4 @@
-import './css/LoginPopup.css';
+import '../css/LoginPopup.css';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPopup = ({ onClose }) => {

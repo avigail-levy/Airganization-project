@@ -1,5 +1,5 @@
 import express from 'express';
-import { getDestinationsByContinentId } from '../controllers/desCon.js';
+import { getDestinationsByContinentId } from '../controllers/destinationsCon.js';
 import {verifyToken}  from '../middlewares/verifyToken.js';
 
 

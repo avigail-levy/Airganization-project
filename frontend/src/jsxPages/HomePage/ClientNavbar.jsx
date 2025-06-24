@@ -1,6 +1,6 @@
-import { useNavigate,Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../UserContext";
-import LoginPopup from "../LoginPopup";
+import LoginPopup from "../Entry/LoginPopup";
 import { useState } from "react";
 import ifCurrentUser from "../../service/GlobalFuncs";
 

@@ -1,7 +1,7 @@
 import { useState ,useEffect } from 'react';
-import './css/AddUpdateVacation.css';
-import { useUserContext } from "./UserContext";
-import fetchData from "../service/FetchData";
+import '../css/AddUpdateVacation.css';
+import { useUserContext } from "../UserContext";
+import fetchData from "../../service/FetchData";
 import { useLocation ,useNavigate} from 'react-router-dom';
 
 
