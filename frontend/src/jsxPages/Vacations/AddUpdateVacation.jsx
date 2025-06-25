@@ -41,9 +41,7 @@ const AddUpdateVacation = () => {
   };
 
   useEffect(() => {
-    console.log('currentUser',currentUser.id);
     getAllContinents();
-     console.log('vacationId',vacationId);
     if(vacationId)
     {
       getVacationById(vacationId);
@@ -52,7 +50,6 @@ const AddUpdateVacation = () => {
 
   const getVacationById = async (vacationId) => {
     try {
-      console.log('vacationId',vacationId);
       const response = await fetchData(`vacationPackages/${vacationId}`);
       const cleaned = {
   ...response,
@@ -66,7 +63,6 @@ setFormData(cleaned);
   }
   const getAllContinents = async () => {
       try {
-        console.log('continents');
         const response = await fetchData('continents');
         setContinents(response);
         if (response.length > 0) {
@@ -91,7 +87,6 @@ setFormData(cleaned);
     : value;
 
   setFormData(prev => ({ ...prev, [name]: cleanValue }));
-  console.log(formData.manager_id);
 };
 
  const checkFormat = () => {
@@ -140,7 +135,6 @@ setFormData(cleaned);
   const handleAdd = (e) => {
     e.preventDefault();
    if(checkFormat()) {
-    console.log('שליחת טופס:', formData);
     try{
           fetchData('vacationPackages/add','POST',formData);
     }
@@ -155,8 +149,6 @@ setFormData(cleaned);
   const handleUpdate = (e) => {
     e.preventDefault();
     if(checkFormat()) {
-    console.log('formData',formData);
-    console.log('שליחת טופס:', formData);
     fetchData('vacationPackages/update','PUT',formData);
     alert('החבילה עודכנה בהצלחה');
     navigate('/home/vacationPackages');

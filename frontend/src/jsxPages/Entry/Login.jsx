@@ -14,14 +14,11 @@ const Login=()=> {
   e.preventDefault(); 
   try{
     const response = await fetchData('users/login','POST',{username,password});
-    console.log('response',response);
      if (response.token) {
       localStorage.setItem("token", response.token); // שמירת הטוקן
      }
    if (response.user) {
     setCurrentUser(response.user);
-    // const redirectTo = location.state?.from;
-    // navigate(redirectTo);
      navigate(`/home`);
   } 
   else {
@@ -37,13 +34,6 @@ catch (error) {
     <div>
       <h1>Login</h1> 
       <form onSubmit={btnLogin}>
-      <label>alicec</label>
-      <br/>
-      <label>hashed_pw1</label>
-      <br/>
-     <label>rinam</label>
-     <br/>
-     <label>hashed_pw3</label>
       <input type="text" placeholder="Username" value={username} required 
               onChange={(e) => setUsername(e.target.value)}/>
       <br/>

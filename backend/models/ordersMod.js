@@ -1,23 +1,14 @@
 import connection from '../database/db.js';
 
 async function createOrder(order) {
-  console.log('orderr',order.user_id);
-  console.log('orderr',order.vacationId);
   const {
     vacationId,user_id,sum_adult_parcipants,sum_child_parcipants,
     full_board,discount_code_id,final_price,isActive} = order;
   try {
     const sql = `
-      INSERT INTO invitations (
-        package_id,
-        user_id,
-        sum_adult_parcipants,
-        sum_child_parcipants,
-        full_board,
-        discount_code_id,
-        final_price,isActive
-      ) VALUES (?, ?, ?, ?, ?, ?, ?,?)
-    `;
+      INSERT INTO invitations ( package_id,user_id, sum_adult_parcipants,
+        sum_child_parcipants, full_board, discount_code_id, final_price,isActive)
+         VALUES (?, ?, ?, ?, ?, ?, ?,?)`;
     const values = [ vacationId,user_id, sum_adult_parcipants,sum_child_parcipants,
       full_board,discount_code_id || null,final_price,isActive];
     
@@ -54,7 +45,28 @@ async function patchOrder(id) {
     throw error;
   }
 }
+async function updateOrder(body) {
+  const {
+    id,vacationId,user_id, sum_adult_parcipants, sum_child_parcipants,
+    full_board,discount_code,final_price, isActive} = body;
+
+  try {
+    const sql = `
+      UPDATE invitations
+      SET vacation_id = ?, user_id = ?, sum_adult_parcipants = ?, sum_child_parcipants = ?,
+      full_board = ?, discount_code = ?, final_price = ?, isActive = ?
+      WHERE id = ?
+    `;
+    const [rows] = await connection.query(sql, [ vacationId, user_id,sum_adult_parcipants,
+      sum_child_parcipants,full_board,discount_code,final_price,isActive, id
+    ]);
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
 export default {
-     createOrder,getAllOrders,getOrdersByUserId,patchOrder
+     createOrder,getAllOrders,getOrdersByUserId,patchOrder,updateOrder
      };
 

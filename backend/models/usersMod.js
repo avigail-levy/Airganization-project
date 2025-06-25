@@ -15,7 +15,6 @@ async function getAllUser() {
   try {
     const sql = 'SELECT * FROM users ';
     const [rows] = await connection.query(sql);
-    console.log('rowss',rows);
     return rows;
   }
    catch (error) {
@@ -49,9 +48,7 @@ async function registerUser(body) {
   }
 }
 async function updateUser(body) {
-  // console.log("moddddd",body);
   const { id ,name, username, phone, email } = body;
-  console.log(id,name, username, phone, email);
   try {
     const sql = `
       UPDATE users

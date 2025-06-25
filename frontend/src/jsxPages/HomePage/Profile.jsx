@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../UserContext";
+import { useEffect } from "react";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -9,8 +10,21 @@ const Profile = () => {
         setCurrentUser(null);
         localStorage.removeItem("token");
         navigate('/home');
+        window.location.replace('/home');
     };
+useEffect(() => {
+  const blockBackButton = () => {
+    window.history.pushState(null, '', window.location.href);
+  };
 
+  blockBackButton();
+
+  window.addEventListener('popstate', blockBackButton);
+
+  return () => {
+    window.removeEventListener('popstate', blockBackButton);
+  };
+}, []);
     const btnUpdate = () => {
         navigate('/home/update', { state: { isUpdate: true } });
     };

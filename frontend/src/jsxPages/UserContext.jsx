@@ -13,18 +13,15 @@ export const UserProvider = ({ children }) => {
       fetchUserDetailsWithToken();
     }
      else {
-      navigate('/home');
+      navigate('/home' ,{ replace: true });
     }
   },[]);
 
   const fetchUserDetailsWithToken = async () => {
     try {
-      console.log("chatchkun!");
       const detailsUser = await fetchData('users/id', 'GET', null);
-      console.log('userssssssssss',detailsUser.name);
       setCurrentUser(detailsUser);
     } catch (error) {
-      // navigate('/login');
       console.error('Error fetching user details:', error);
     }
   };

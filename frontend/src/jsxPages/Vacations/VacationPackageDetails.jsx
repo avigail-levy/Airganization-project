@@ -23,6 +23,7 @@ const VacationPackagesDetails = () => {
         setPictures(data);
       } catch (err) {
         console.error('שגיאה בהבאת תמונות:', err);
+        //alert
       }
     };
     fetchPictures();
@@ -98,10 +99,10 @@ const VacationPackagesDetails = () => {
       )}
 
       <div className="details-grid">
-        <p>📅 <strong>תאריכים:</strong> {formatDate(start_date)} - {formatDate(end_date)}</p>
-        <p>📦 <strong>מקומות פנויים:</strong> {available_slots}</p>
-        <p>👤 <strong>מחיר למבוגר:</strong> ₪{adult_price}</p>
-        <p>👶 <strong>מחיר לילד:</strong> ₪{child_price}</p>
+        <p> <strong>תאריכים:</strong> {formatDate(start_date)} - {formatDate(end_date)}</p>
+        <p> <strong>מקומות פנויים:</strong> {available_slots}</p>
+        <p> <strong>מחיר למבוגר:</strong> ₪{adult_price}</p>
+        <p> <strong>מחיר לילד:</strong> ₪{child_price}</p>
       </div>
 
       <p className="description">{description}</p>

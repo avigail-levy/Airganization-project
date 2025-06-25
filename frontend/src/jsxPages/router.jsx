@@ -39,7 +39,7 @@ const router = createBrowserRouter([
           { path: 'ContactForm', element: <ContactForm /> },
           { path: 'vacationPackages/update', element: <AddUpdateVacation /> },
           { path: 'vacationPackages/order', element: <AddUpdateVacationOrder /> },
-           { path: 'order/update', element: <AddUpdateVacationOrder /> },
+          { path: 'order/update', element: <AddUpdateVacationOrder /> },
           { path: 'vacationDetails', element: <VacationPackagesDetails />},
           { path: 'profile', element: <Profile /> },
           { path: 'update', element: <Register /> }

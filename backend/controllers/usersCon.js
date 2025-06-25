@@ -2,7 +2,6 @@ import usersMod from '../models/usersMod.js';
 import jwt from 'jsonwebtoken';
 
 export async function getUserById(req, res) {
-  console.log('req.user.id', req.user.id);
   const userId = req.user.id;
   try {
     const user = await usersMod.getUserById(userId);
@@ -15,7 +14,7 @@ export async function getUserById(req, res) {
 }
 
 export async function getAllUser(req, res) {
-  try { // בדיקת הרשאה - רק מנהל יכול להמשיך
+  try { 
     if (req.user.role !== 'manager') {
       return res.status(401).json({ message: 'Access denied. Managers only.' });
     }
@@ -30,10 +29,8 @@ export async function getAllUser(req, res) {
 
 export async function getUserByUserNamePassword(req, res) {
   const body = req.body;
-  console.log('body', body);
   try {
     const user = await usersMod.getUserByUserNamePassword(body);
-    console.log(user);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
     // יצירת טוקן JWT
@@ -44,7 +41,6 @@ export async function getUserByUserNamePassword(req, res) {
     );
 
     // שליחת פרטי המשתמש + הטוקן
-    console.log('userrrrrr',user);
     res.json({user, token });
 
 
@@ -53,11 +49,9 @@ export async function getUserByUserNamePassword(req, res) {
   }
 }
 export async function registerUser(req, res) {
-  console.log('req.body', req.body);
   const body = req.body;
   try {
     const user = await usersMod.registerUser(body);
-    console.log('user', user);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
     // יצירת טוקן JWT
@@ -66,8 +60,6 @@ export async function registerUser(req, res) {
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES }
     );
-
-    console.log('userrrrrr', user.role, user.id);
     // שליחת פרטי המשתמש + הטוקן
     res.json({ user, token });
 
@@ -76,10 +68,7 @@ export async function registerUser(req, res) {
   }
 }
 export async function updateUser(req, res) {
-  console.log('update user', req.body);
   const { body } = req;
-  //  const body = req.body;
-
   try {
     const updatedUser = await usersMod.updateUser(body);
     if (!updatedUser) {

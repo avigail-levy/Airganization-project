@@ -31,12 +31,9 @@ app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 app.use('/api/users', usersRoutes);
 app.use('/api/vacationPackages', vacationsRoutes);
 app.use('/api/pictures', picturesRoutes);
-// app.use('/api/pictures',express.static(path.join(__dirname, 'images')));
 app.use('/api/continents',continentsRoutes);
 app.use('/api/destinations',destinationsRoutes);
 app.use('/api/orders',ordersRoutes);
-
-
 
 
 app.listen(3000, () => {

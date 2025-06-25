@@ -12,7 +12,6 @@ export async function getVacationsPackages(req, res) {
 }
 export async function getVacationPackageById(req, res) {
   const id = req.params.id;
-  console.log('id',id);
   try {
     const vacation = await vacationsMod.getVacationPackageById(id);
     if (!vacation) return res.status(404).json({ message: 'vacation not found' });
@@ -23,10 +22,7 @@ export async function getVacationPackageById(req, res) {
   }
 }
 export async function createVacation(req, res) {
-  console.log('vacation',req.body);
-  const vacation = req.body;
-  console.log('vacation',vacation);
-  
+  const vacation = req.body;  
   try {
     const vacations = await vacationsMod.createVacation(vacation);
     if (!vacations) return res.status(404).json({ message: 'vacations not found' });
@@ -37,9 +33,7 @@ export async function createVacation(req, res) {
   }
 }
 export async function updateVacation(req, res) {
-  console.log('vacation',req.body);
   const vacation = req.body;
-  console.log('vacation',vacation);
   try {
     const vacations = await vacationsMod.updateVacation(vacation);
     if (!vacations) return res.status(404).json({ message: 'vacations not found' });

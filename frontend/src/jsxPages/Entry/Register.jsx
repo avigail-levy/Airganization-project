@@ -24,7 +24,6 @@ const RegisterOrUpdate = () => {
 
     // אם מדובר בעדכון – נמלא את הערכים מתוך ה־currentUser
     useEffect(() => {
-        console.log('isUpdate', isUpdate);
         if (isUpdate && currentUser) {
             setValuesInput({
                 name: currentUser.name || '',
@@ -79,7 +78,6 @@ const RegisterOrUpdate = () => {
                     setCurrentUser(response.user);
                     alert('נרשם בהצלחה!');
             }
-            console.log('currentUser',currentUser);
             navigate('/home');
         } catch (error) {
             console.error('Error:', error);
