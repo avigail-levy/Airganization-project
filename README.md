@@ -15,12 +15,14 @@ Destination Management: Organize and filter packages by continent or destination
 User & Order Control: Manage users, view orders, and monitor system activity.
 
 **For Users:**
+
 Browse Packages: View available vacation packages with details such as price (adult/child), services, and availability.
 Book Vacations: Place new orders, including number of participants, meal plans, and discount codes.
 Order Management: Update or cancel existing bookings.
 Real-Time Pricing: Automatic calculation of total price based on participants and options.
 
 **Technology Stack:**
+
 Frontend (React):
 
 -React + React Router
@@ -62,9 +64,5 @@ cd client && npm install
 
 Configure environment variables (.env)
 
-JWT_SECRET=your-secret-key
-JWT_EXPIRES=1h
-
 Run backend & frontend
-
 npm run dev
