@@ -58,11 +58,11 @@ DevOps & Tools:
 
 Clone the repository
 [git clone](https://github.com/avigail-levy/Airganization-project)
-Install dependencies
-cd server && npm install
+Install dependencies:
+cd server && npm install,
 cd client && npm install
 
 Configure environment variables (.env)
 
-Run backend & frontend
-npm run dev
+Run backend & frontend,
+npm run dev.
