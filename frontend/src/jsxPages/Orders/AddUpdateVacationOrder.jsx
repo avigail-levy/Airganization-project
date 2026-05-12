@@ -9,14 +9,14 @@ const AddUpdateVacationOrder = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const vacationPackage = location.state?.vacation;
-  const order = location.state?.order || null;
+  const vacationPackage = location.state;
+  const order = location.state || null;
 
 
   const [pay, setPay] = useState(false);
 
   const [formData, setFormData] = useState({
-    id:order.invitation_id||null,
+    id:order?.invitation_id||null,
     vacationId: vacationPackage?.id || null,
     user_id: currentUser?.id || null,
     sum_adult_parcipants: 0,
@@ -29,9 +29,13 @@ const AddUpdateVacationOrder = () => {
 
   // אם מדובר בעריכת הזמנה קיימת – נטען אותה לתוך ה־form
   useEffect(() => {
+    console.log(order);
+    console.log("location.stata",location.state)
+
     if (order) {
+      console.log("fd", order)
       setFormData({
-        vacationId: order.vacationId,
+        vacation_name: order.vacation_name,
         user_id: order.user_id,
         sum_adult_parcipants: order.sum_adult_parcipants,
         sum_child_parcipants: order.sum_child_parcipants,
@@ -50,6 +54,7 @@ const AddUpdateVacationOrder = () => {
     const totalAdults = parseInt(formData.sum_adult_parcipants) || 0;
     const totalChildren = parseInt(formData.sum_child_parcipants) || 0;
 
+    console.log("Ssssssssssssssssssss",vacationPackage)
     const totalPrice =
       totalAdults * vacationPackage.adult_price +
       totalChildren * vacationPackage.child_price;
@@ -94,7 +99,14 @@ const AddUpdateVacationOrder = () => {
 
     try {
       if (order) {
-        await fetchData('orders/update', 'PUT', formData);
+        console.log(formData)
+        await fetchData('orders/update', 'PUT', {
+          user_id:formData.user_id,
+          sum_adult_parcipants: formData.sum_adult_parcipants,
+          sum_child_parcipants:formData.sum_child_parcipants,
+          full_board: formData.full_board,
+          final_price:totalPrice
+        });
         alert('ההזמנה עודכנה בהצלחה');
       } else {
         await fetchData('orders/order', 'POST', formData);

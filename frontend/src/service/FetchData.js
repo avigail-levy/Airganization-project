@@ -1,6 +1,6 @@
 async function fetchData(navigateString, methodType = "GET", dataContent = null) {
   let token = localStorage.getItem("token");
-
+console.log(dataContent)
   const options = {
     headers: {
       'Content-Type': 'application/json',

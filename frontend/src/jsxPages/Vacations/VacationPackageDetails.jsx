@@ -115,6 +115,8 @@ const VacationPackagesDetails = () => {
 
         {!isManager &&
           <button className="action-btn" onClick={() => {
+            console.log((vacationPackage));
+            
             if (handleOrder()) {
               navigate(`/home/vacationPackages/order`, { state: vacationPackage });
             }

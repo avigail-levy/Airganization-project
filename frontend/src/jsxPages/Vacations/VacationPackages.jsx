@@ -68,7 +68,6 @@ const VacationPackages = ({ isHomePage = false }) => {
               {vacationPackage.country_name}
             </h2>
             <h2>{vacationPackage.name}</h2>
-           
           </div>
         ))}
       </div>

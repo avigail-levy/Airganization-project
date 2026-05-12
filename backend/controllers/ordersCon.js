@@ -46,6 +46,7 @@ export async function patchOrder(req, res) {
 }
 export async function updateOrder(req, res) {
   const body = req.body;
+  console.log(body)
   try {
     const order = await ordersMod.updateOrder(body);
     if (!order) return res.status(404).json({ message: 'orders not found' });

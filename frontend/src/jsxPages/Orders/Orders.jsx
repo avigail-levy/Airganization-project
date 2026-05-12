@@ -23,6 +23,7 @@ const Orders = () => {
   const getMyOrders = async () => {
     try {
       const response = await fetchData('orders/myOrders');
+      console.log(response);
       setOrders(response);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -73,7 +74,8 @@ const deleteOrder = async (orderId) => {
     <p><strong>מחיר סופי:</strong> ₪{order.final_price}</p>
     {role === 'manager' && <p><strong>שם המזמין:</strong> {order.user_name}</p>}
     {role==='customer' && <button onClick={() => {console.log(order.invitation_id), deleteOrder(order.invitation_id)}}>ביטול</button>
-    &&<button onClick={() => {navigate('/home/order/update'),{ state: {order:order}}}}>ערוך</button>}
+    &&<button onClick={() => {navigate('/home/order/update',{ state: order})}}>ערוך</button>}
+
   </div>
 </div>
 

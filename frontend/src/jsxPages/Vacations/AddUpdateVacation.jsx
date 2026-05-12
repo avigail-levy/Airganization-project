@@ -13,7 +13,7 @@ const AddUpdateVacation = () => {
   const [imageFile, setImageFile] = useState(null);
   const navigate=useNavigate();
   const location = useLocation();
-  const vacationId = location.state;
+  const vacationId = location.state.id;
   const [ formData, setFormData ] = useState({
     id: vacationId ||'',
     name: '',
