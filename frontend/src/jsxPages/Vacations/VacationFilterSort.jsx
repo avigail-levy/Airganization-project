@@ -1,7 +1,15 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import "../css/VacationFilterSort.css";
 
-const sortOptions = ["price", "date"];
-const searchOptions = ["country", "continent", "name"];
+const sortOptions = [
+  { value: "price", label: "מחיר" },
+  { value: "date", label: "תאריך" },
+];
+const searchOptions = [
+  { value: "country_name", label: "מדינה" },
+  { value: "continent_name", label: "יבשת" },
+  { value: "name", label: "שם חבילה" },
+];
 
 const VacationFilterSort = ({
   allPackages,
@@ -16,18 +24,21 @@ const VacationFilterSort = ({
   useEffect(() => {
     let filtered = [...allPackages];
 
-    // סינון
     if (searchQuery) {
+      const query = searchQuery.toLowerCase();
       filtered = filtered.filter((pkg) => {
         const field = pkg[searchBy];
-        return field?.toLowerCase?.().includes(searchQuery.toLowerCase());
+        return String(field ?? "")
+          .toLowerCase()
+          .includes(query);
       });
     }
 
-    // מיון
     switch (sortBy) {
       case "price":
-        filtered.sort((a, b) => a.adult_price - b.adult_price);
+        filtered.sort(
+          (a, b) => Number(a.adult_price) - Number(b.adult_price)
+        );
         break;
       case "date":
         filtered.sort(
@@ -42,37 +53,53 @@ const VacationFilterSort = ({
   }, [allPackages, searchQuery, searchBy, sortBy]);
 
   return (
-    <div className="filter-sort-container">
-      <input
-        type="text"
-        placeholder="חפש חבילה"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
+    <div className="filter-sort-panel">
+      <div className="filter-sort-toolbar">
+        <div className="toolbar-block search-block">
+          <span className="toolbar-block-label">חיפוש</span>
+          <input
+            id="package-search"
+            type="text"
+            placeholder="מדינה, יבשת או שם..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <label className="toolbar-field-label" htmlFor="package-search-by">
+            לפי
+          </label>
+          <select
+            id="package-search-by"
+            value={searchBy}
+            onChange={(e) => setSearchBy(e.target.value)}
+          >
+            {searchOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <select
-        value={searchBy}
-        onChange={(e) => setSearchBy(e.target.value)}
-      >
-        {searchOptions.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-      <label>חפש לפי</label>
+        <span className="toolbar-separator" aria-hidden="true" />
 
-      <select
-        value={sortBy}
-        onChange={(e) => setSortBy(e.target.value)}
-      >
-        {sortOptions.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-      <label>מיין לפי</label>
+        <div className="toolbar-block sort-block">
+          <span className="toolbar-block-label">מיון</span>
+          <label className="toolbar-field-label" htmlFor="package-sort-by">
+            לפי
+          </label>
+          <select
+            id="package-sort-by"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+          >
+            {sortOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
     </div>
   );
 };

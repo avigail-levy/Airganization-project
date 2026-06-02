@@ -1,31 +1,112 @@
-.filter-sort-container {
+.filter-sort-panel {
+  direction: rtl;
+  max-width: 960px;
+  width: 100%;
+  margin: 1.5rem auto 2rem;
+  padding: 0.85rem 1.25rem;
+  border: 1px solid #c8e6d9;
+  border-radius: 12px;
+  background-color: #f8fdfb;
+  box-shadow: 0 4px 12px rgba(5, 152, 108, 0.08);
+  font-family: "Segoe UI", Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.filter-sort-toolbar {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   gap: 1rem;
-  margin: 1.5rem auto;
-  padding: 1.5rem;
-  max-width: 500px;
-  border: 1px solid #ccc;
-  border-radius: 1rem;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', sans-serif;
+  flex-wrap: wrap;
 }
 
-.filter-sort-container input,
-.filter-sort-container select {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #aaa;
-  font-size: 1rem;
+.toolbar-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
 }
 
-.filter-sort-container label {
-  font-weight: bold;
-  margin-bottom: 0.25rem;
+.search-block {
+  flex: 1 1 320px;
+  min-width: 0;
 }
-h1 {
-  text-align: center;
-  margin: 20px 0;
+
+.sort-block {
+  flex: 0 0 auto;
+}
+
+.toolbar-block-label {
+  font-weight: 700;
+  font-size: 0.9rem;
   color: #05986c;
+  white-space: nowrap;
+  padding-left: 0.15rem;
+}
+
+.toolbar-field-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #555;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.toolbar-separator {
+  width: 1px;
+  height: 2rem;
+  background-color: #b8dfc9;
+  flex-shrink: 0;
+}
+
+.search-block input {
+  flex: 1 1 140px;
+  min-width: 100px;
+}
+
+.toolbar-block select {
+  min-width: 110px;
+}
+
+.filter-sort-panel input,
+.filter-sort-panel select {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #b0c4b8;
+  font-size: 0.95rem;
+  background-color: #fff;
+  color: #222;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-sort-panel input:focus,
+.filter-sort-panel select:focus {
+  outline: none;
+  border-color: #05986c;
+  box-shadow: 0 0 0 3px rgba(5, 152, 108, 0.15);
+}
+
+.filter-sort-panel input::placeholder {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .filter-sort-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbar-separator {
+    width: 100%;
+    height: 1px;
+  }
+
+  .search-block,
+  .sort-block {
+    flex: 1 1 100%;
+    justify-content: flex-start;
+  }
 }

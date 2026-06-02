@@ -27,9 +27,6 @@ if (newToken) {
   if (!response.ok) {
     throw new Error(data.error || data.message || "Unknown error");
   }
-if(response.status !== 200){
-    throw new Error(`HTTP error!message: ${response.json()}`);
-  }
   return data;
 }
 

@@ -6,7 +6,7 @@ import { useUserContext } from "../UserContext";
 const RegisterOrUpdate = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { currentUser, setCurrentUser } = useUserContext();
+    const { currentUser, setCurrentUser, refreshCurrentUser } = useUserContext();
     const [error, setError] = useState('');
 
     const isUpdate = location.state?.isUpdate || false;
@@ -27,7 +27,7 @@ const RegisterOrUpdate = () => {
         if (isUpdate && currentUser) {
             setValuesInput({
                 name: currentUser.name || '',
-                username: currentUser.username || '',
+                username: currentUser.user_name || currentUser.username || '',
                 phone: currentUser.phone || '',
                 email: currentUser.email || '',
                 role: currentUser.role || 'customer',
@@ -35,7 +35,7 @@ const RegisterOrUpdate = () => {
                 id: currentUser.id
             });
         }
-    }, [isUpdate, currentUser]);
+    }, [isUpdate, currentUser?.id]);
 
     const validateValues = () => {
         if (valuesInput.username.length < 3) {
@@ -68,8 +68,14 @@ const RegisterOrUpdate = () => {
 
         try {
             if (isUpdate) {
-                const user = await fetchData('users/update', 'PUT', valuesInput);
-                setCurrentUser(user);
+                await fetchData('users/update', 'PUT', {
+                    id: Number(valuesInput.id),
+                    name: valuesInput.name,
+                    username: valuesInput.username.trim(),
+                    phone: valuesInput.phone,
+                    email: valuesInput.email,
+                });
+                await refreshCurrentUser();
                 alert('הפרטים עודכנו בהצלחה');
             } 
             else {
@@ -85,7 +91,8 @@ const RegisterOrUpdate = () => {
         }
     };
     const updateCurrentValues = (e) => {
-        setValuesInput({ ...valuesInput, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setValuesInput((prev) => ({ ...prev, [name]: value }));
     };
 
     return (

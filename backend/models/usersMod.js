@@ -59,10 +59,10 @@ async function updateUser(body) {
     const [result] = await connection.query(sql, [name, username, phone, email,id]);
 
     if (result.affectedRows === 0) {
-      return null; // אם לא נמצא משתמש עם id הזה
+      return null;
     }
 
-    return { id, name, username, phone, email };
+    return getUserById(id);
   } catch (error) {
     throw error;
   }

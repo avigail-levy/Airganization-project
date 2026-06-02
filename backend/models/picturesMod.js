@@ -15,4 +15,22 @@ async function getPicturesByPackageId(packageId) {
   }
 }
 
-export default { getPicturesByPackageId };
+async function addPicture({ package_id, alt_text, image_url, sort_order = 1 }) {
+  try {
+    const sql = `
+      INSERT INTO pictures (package_id, alt_text, image_url, sort_order)
+      VALUES (?, ?, ?, ?)
+    `;
+    const [result] = await connection.query(sql, [
+      package_id,
+      alt_text,
+      image_url,
+      sort_order,
+    ]);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export default { getPicturesByPackageId, addPicture };

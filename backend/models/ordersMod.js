@@ -49,27 +49,31 @@ async function patchOrder(id) {
 }
 async function updateOrder(body) {
   const {
-    id,vacationId,user_id, sum_adult_parcipants, sum_child_parcipants,
-    full_board,discount_code,final_price, isActive} = body;
+    id, user_id, sum_adult_parcipants, sum_child_parcipants,
+    full_board, final_price,
+  } = body;
 
   try {
-    // const sql = `
-    //   UPDATE invitations
-    //   SET vacation_id = ?, user_id = ?, sum_adult_parcipants = ?, sum_child_parcipants = ?,
-    //   full_board = ?, discount_code = ?, final_price = ?, isActive = ?
-    //   WHERE id = ?
-    // `;
     const sql = `
-    UPDATE invitations
-    SET  user_id = ?, sum_adult_parcipants = ?, sum_child_parcipants = ?,
-    full_board = ?, final_price = ?
-    WHERE id = ?
-  `;
-    const [rows] = await connection.query(sql, [ vacationId, user_id,sum_adult_parcipants,
-      sum_child_parcipants,full_board,discount_code,final_price,isActive, id
+      UPDATE invitations
+      SET user_id = ?, sum_adult_parcipants = ?, sum_child_parcipants = ?,
+          full_board = ?, final_price = ?
+      WHERE id = ?
+    `;
+    const [result] = await connection.query(sql, [
+      user_id,
+      sum_adult_parcipants,
+      sum_child_parcipants,
+      full_board,
+      final_price,
+      id,
     ]);
 
-    return rows;
+    if (result.affectedRows === 0) {
+      throw new Error('Order not found');
+    }
+
+    return result;
   } catch (error) {
     throw error;
   }

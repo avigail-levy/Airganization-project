@@ -213,12 +213,15 @@ WHERE vp.isActive = TRUE;
 CREATE OR REPLACE VIEW user_orders_view AS
 SELECT 
   inv.id AS invitation_id,
+  inv.package_id,
   inv.user_id,
   u.name AS user_name,
   vp.name AS vacation_name,
   vp.description,
   vp.start_date,
   vp.end_date,
+  vp.adult_price,
+  vp.child_price,
   d.country_name,
   c.continent_name,
   inv.sum_adult_parcipants,

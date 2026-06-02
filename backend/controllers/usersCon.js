@@ -68,7 +68,7 @@ export async function registerUser(req, res) {
   }
 }
 export async function updateUser(req, res) {
-  const { body } = req;
+  const body = req.body;
   try {
     const updatedUser = await usersMod.updateUser(body);
     if (!updatedUser) {

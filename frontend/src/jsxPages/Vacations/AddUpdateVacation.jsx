@@ -13,7 +13,7 @@ const AddUpdateVacation = () => {
   const [imageFile, setImageFile] = useState(null);
   const navigate=useNavigate();
   const location = useLocation();
-  const vacationId = location.state.id;
+  const vacationId = location.state?.id;
   const [ formData, setFormData ] = useState({
     id: vacationId ||'',
     name: '',
@@ -132,19 +132,114 @@ setFormData(cleaned);
    }
    return true;
  }
-  const handleAdd = (e) => {
+  const MAX_IMAGE_MB = 8;
+
+  const compressImageFile = (file, maxWidth = 1280, quality = 0.82) =>
+    new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) {
+              reject(new Error('דחיסת התמונה נכשלה'));
+              return;
+            }
+            const compressed = new File(
+              [blob],
+              file.name.replace(/\.\w+$/, '.jpg'),
+              { type: 'image/jpeg' }
+            );
+            resolve(compressed);
+          },
+          'image/jpeg',
+          quality
+        );
+      };
+
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error('לא ניתן לקרוא את התמונה'));
+      };
+
+      img.src = url;
+    });
+
+  const fileToBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+
+  const uploadPackageImage = async (packageId, file, altText) => {
+    if (file.size > MAX_IMAGE_MB * 1024 * 1024) {
+      alert(`התמונה גדולה מדי (מקסימום ${MAX_IMAGE_MB}MB). בחרי תמונה קטנה יותר.`);
+      return false;
+    }
+
+    const preparedFile =
+      file.type.startsWith('image/') ? await compressImageFile(file) : file;
+    const imageBase64 = await fileToBase64(preparedFile);
+
+    await fetchData('pictures/add', 'POST', {
+      package_id: packageId,
+      alt_text: altText,
+      fileName: preparedFile.name,
+      imageBase64,
+    });
+    return true;
+  };
+
+  const handleAdd = async (e) => {
     e.preventDefault();
-   if(checkFormat()) {
-    try{
-          fetchData('vacationPackages/add','POST',formData);
+    if (!checkFormat()) return;
+
+    try {
+      const result = await fetchData('vacationPackages/add', 'POST', formData);
+
+      if (imageFile && result?.insertId) {
+        try {
+          const imageSaved = await uploadPackageImage(
+            result.insertId,
+            imageFile,
+            formData.name
+          );
+          if (imageSaved === false) {
+            alert('החבילה נוספה, אך התמונה לא נשמרה (קובץ גדול מדי).');
+            navigate('/home/vacationPackages');
+            return;
+          }
+        } catch (imageError) {
+          console.error(imageError);
+          alert('החבילה נוספה, אך שמירת התמונה נכשלה. נסי תמונה קטנה יותר.');
+          navigate('/home/vacationPackages');
+          return;
+        }
+      }
+
+      alert('החבילה נוספה בהצלחה');
+      navigate('/home/vacationPackages');
+    } catch (error) {
+      console.error(error);
+      alert('שגיאה בהוספת החבילה');
     }
-    catch(error){
-      console.log(error);
-    }
-    alert('החבילה נוספה בהצלחה');
-    navigate('/home/vacationPackages');
-    
-   }
   };
   const handleUpdate = (e) => {
     e.preventDefault();
