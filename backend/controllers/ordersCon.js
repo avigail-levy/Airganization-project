@@ -46,15 +46,14 @@ export async function patchOrder(req, res) {
 }
 export async function updateOrder(req, res) {
   const body = req.body;
-  console.log(body)
+  if (!body?.id) {
+    return res.status(400).json({ message: 'Order id is required' });
+  }
   try {
     const order = await ordersMod.updateOrder(body);
-    if (!order) return res.status(404).json({ message: 'orders not found' });
-    res.json(order);
+    res.json({ message: 'Order updated successfully', order });
+  } catch (error) {
+    res.status(500).json({ message: error.message || 'Error updating order' });
   }
-   catch (error) {
-    res.status(500).json({ message: 'Error fetching orders', error });
-  }
-  
 }
 

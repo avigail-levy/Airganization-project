@@ -24,12 +24,11 @@ export async function getVacationPackageById(req, res) {
 export async function createVacation(req, res) {
   const vacation = req.body;  
   try {
-    const vacations = await vacationsMod.createVacation(vacation);
-    if (!vacations) return res.status(404).json({ message: 'vacations not found' });
-    res.json(vacations);
+    const result = await vacationsMod.createVacation(vacation);
+    res.status(201).json(result);
   }
    catch (error) {
-    res.status(500).json({ message: 'Error fetching vacations', error });
+    res.status(500).json({ message: 'Error creating vacation', error });
   }
 }
 export async function updateVacation(req, res) {

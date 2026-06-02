@@ -52,11 +52,16 @@ const VacationPackagesDetails = () => {
   };
 
   const deleteVacationPackage = async () => {
+    if (!window.confirm('האם למחוק את חבילת הנופש?')) return;
+
     try {
-      fetchData(`vacationPackages/patch`, 'PATCH', { id: vacationPackage.id });
-      navigate('/home/vacationPackages');
+      await fetchData(`vacationPackages/patch`, 'PATCH', { id: vacationPackage.id });
+      navigate('/home/vacationPackages', {
+        state: { deletedPackageId: vacationPackage.id },
+      });
     } catch (error) {
-      console.error("Error deleting vacation package:", error);
+      console.error('Error deleting vacation package:', error);
+      alert('שגיאה במחיקת החבילה');
     }
   };
 
@@ -109,7 +114,7 @@ const VacationPackagesDetails = () => {
 
       <div className="button-row">
         {isManager &&
-          <button className="action-btn" onClick={() => navigate(`/home/vacationPackages/update`, { state: vacationPackage.id })}>
+          <button className="action-btn" onClick={() => navigate(`/home/vacationPackages/update`, { state: { id: vacationPackage.id } })}>
             עריכה
           </button>}
 
@@ -125,11 +130,7 @@ const VacationPackagesDetails = () => {
           </button>
         }
         {isManager &&
-          <button className="action-btn" onClick={() => {
-            if (handleOrder()) {
-              deleteVacationPackage();
-            }
-          }}>
+          <button className="action-btn" onClick={deleteVacationPackage}>
             מחק
           </button>
         }

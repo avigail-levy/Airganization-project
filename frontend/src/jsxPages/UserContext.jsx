@@ -26,7 +26,7 @@ export const UserProvider = ({ children }) => {
     }
   };
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser}}>
+    <UserContext.Provider value={{ currentUser, setCurrentUser, refreshCurrentUser: fetchUserDetailsWithToken }}>
       {children}
     </UserContext.Provider>
   );

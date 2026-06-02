@@ -40,7 +40,7 @@ useEffect(() => {
             <h1>פרופיל אישי</h1>
             <div style={{ direction: 'rtl' }}>
                 <p><strong>שם:</strong> {currentUser.name}</p>
-                <p><strong>שם משתמש:</strong> {currentUser.user_name}</p>
+                <p><strong>שם משתמש:</strong> {currentUser.user_name || currentUser.username}</p>
                 <p><strong>טלפון:</strong> {currentUser.phone}</p>
                 <p><strong>כתובת אימייל:</strong> {currentUser.email}</p>
             </div>

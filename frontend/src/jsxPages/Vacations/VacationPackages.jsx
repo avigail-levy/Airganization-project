@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import fetchData from "../../service/FetchData";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../css/VacationPackages.css";
 import { useUserContext } from "../UserContext";
 import VacationFilterSort from "../Vacations/VacationFilterSort";
@@ -11,14 +11,29 @@ const VacationPackages = ({ isHomePage = false }) => {
   const [filteredPackages, setFilteredPackages] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchBy, setSearchBy] = useState("country");
+  const [searchBy, setSearchBy] = useState("country_name");
   const [sortBy, setSortBy] = useState("price");
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     getVacationPackages();
-  }, [isHomePage]);
+  }, [isHomePage, location.key]);
+
+  useEffect(() => {
+    const deletedId = location.state?.deletedPackageId;
+    if (!deletedId) return;
+
+    const idToRemove = Number(deletedId);
+    setVacationPackages((prev) =>
+      prev.filter((pkg) => Number(pkg.id) !== idToRemove)
+    );
+    setFilteredPackages((prev) =>
+      prev.filter((pkg) => Number(pkg.id) !== idToRemove)
+    );
+    navigate(location.pathname, { replace: true, state: {} });
+  }, [location.state]);
 
   const getVacationPackages = async () => {
     try {

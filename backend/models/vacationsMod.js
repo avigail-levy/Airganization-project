@@ -30,10 +30,10 @@ async function createVacation(vacation) {
        destination_id, available_slots,isActive)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)
     `;
-    const [rows] = await connection.query(sql,
+    const [result] = await connection.query(sql,
       [name,start_date,end_date,description,adult_price,
       child_price,manager_id,destination_id,available_slots,isActive]);
-    return rows;
+    return { insertId: result.insertId };
   }
    catch (error) {
     throw error;
