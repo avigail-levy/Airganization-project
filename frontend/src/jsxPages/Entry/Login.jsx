@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import { useUserContext }from '../UserContext';
 import fetchData from '../../service/FetchData';
+import '../css/Login.css';
 
 const Login=()=> {
   const [username, setUsername] = useState('');
@@ -31,8 +32,8 @@ catch (error) {
 }
 };
   return (
-    <div>
-      <h1>Login</h1> 
+    <div className="login-page">
+      <h1>Login</h1>
       <form onSubmit={btnLogin}>
       <input type="text" placeholder="Username" value={username} required 
               onChange={(e) => setUsername(e.target.value)}/>

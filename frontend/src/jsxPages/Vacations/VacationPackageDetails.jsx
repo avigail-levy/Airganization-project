@@ -45,9 +45,9 @@ const VacationPackagesDetails = () => {
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('he-IL', {
+      day: '2-digit',
+      month: '2-digit',
       year: 'numeric',
-      month: 'long',
-      day: 'numeric'
     });
   };
 
@@ -82,32 +82,85 @@ const VacationPackagesDetails = () => {
 
       {pictures.length > 0 && (
         <div className="image-slider">
-          <button
-            className="slider-arrow left"
-            onClick={() => setCurrentIndex((currentIndex - 1 + pictures.length) % pictures.length)}
-          >
-            &lt;
-          </button>
-          <img
-            src={`http://localhost:3000${pictures[currentIndex].image_url}`}
-            alt={pictures[currentIndex].alt_text}
-            className="package-image"
-          />
+          <div className="slider-image-wrapper">
+            <button
+              type="button"
+              className="slider-arrow left"
+              aria-label="תמונה הבאה"
+              onClick={() => setCurrentIndex((currentIndex + 1) % pictures.length)}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
 
-          <button
-            className="slider-arrow right"
-            onClick={() => setCurrentIndex((currentIndex + 1) % pictures.length)}
-          >
-            &gt;
-          </button>
+            <div className="slider-image-frame">
+              {pictures.map((picture, index) => (
+                <img
+                  key={picture.image_url}
+                  src={`http://localhost:3000${picture.image_url}`}
+                  alt={picture.alt_text}
+                  className={`package-image${index === currentIndex ? ' active' : ''}`}
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className="slider-arrow right"
+              aria-label="תמונה קודמת"
+              onClick={() => setCurrentIndex((currentIndex - 1 + pictures.length) % pictures.length)}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+
+            {pictures.length > 1 && (
+              <span className="slider-counter">
+                {currentIndex + 1} / {pictures.length}
+              </span>
+            )}
+          </div>
+
+          {pictures.length > 1 && (
+            <div className="slider-dots">
+              {pictures.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  className={`slider-dot${index === currentIndex ? ' active' : ''}`}
+                  aria-label={`תמונה ${index + 1}`}
+                  onClick={() => setCurrentIndex(index)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
 
-      <div className="details-grid">
-        <p> <strong>תאריכים:</strong> {formatDate(start_date)} - {formatDate(end_date)}</p>
-        <p> <strong>מקומות פנויים:</strong> {available_slots}</p>
-        <p> <strong>מחיר למבוגר:</strong> ₪{adult_price}</p>
-        <p> <strong>מחיר לילד:</strong> ₪{child_price}</p>
+      <div className="details-section">
+        <p className="package-dates-row">
+          <strong>תאריכים:</strong>
+          <span className="date-value">{formatDate(start_date)}</span>
+          <span className="date-separator">←</span>
+          <span className="date-value">{formatDate(end_date)}</span>
+        </p>
+
+        <div className="package-stats">
+          <div className="stat-item">
+            <span className="stat-label">מקומות פנויים</span>
+            <span className="stat-value">{available_slots}</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">מחיר למבוגר</span>
+            <span className="stat-value">₪{adult_price}</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">מחיר לילד</span>
+            <span className="stat-value">₪{child_price}</span>
+          </div>
+        </div>
       </div>
 
       <p className="description">{description}</p>
