@@ -4,6 +4,26 @@ import { useUserContext } from "../UserContext";
 import fetchData from "../../service/FetchData";
 import { useLocation ,useNavigate} from 'react-router-dom';
 
+const formatDateForInput = (value) => {
+  if (!value) return '';
+  if (typeof value === 'string') return value.substring(0, 10);
+  if (value instanceof Date) return value.toISOString().substring(0, 10);
+  return String(value).substring(0, 10);
+};
+
+const mapVacationToFormData = (vacation) => ({
+  id: vacation.id,
+  name: vacation.name ?? '',
+  start_date: formatDateForInput(vacation.start_date),
+  end_date: formatDateForInput(vacation.end_date),
+  description: vacation.description ?? '',
+  adult_price: vacation.adult_price ?? '',
+  child_price: vacation.child_price ?? '',
+  manager_id: vacation.manager_id,
+  destination_id: String(vacation.destination_id ?? ''),
+  available_slots: vacation.available_slots ?? '',
+  isActive: vacation.isActive ?? true,
+});
 
 const AddUpdateVacation = () => {
   const { currentUser } = useUserContext();
@@ -27,53 +47,69 @@ const AddUpdateVacation = () => {
     available_slots: '',
     isActive:true
   });
-  const loadDestinationsForContinent = async (continentId) => {
+  const loadDestinationsForContinent = async (continentId, keepDestinationId = null) => {
     try {
       const response = await fetchData(`destinations/${continentId}`);
       setDestinations(response);
       setFormData(prev => ({
         ...prev,
-        destination_id: response.length > 0 ? response[0].id : ''
+        destination_id: keepDestinationId != null
+          ? String(keepDestinationId)
+          : (response.length > 0 ? String(response[0].id) : '')
       }));
     } catch (error) {
       console.error('Error fetching destinations:', error);
+      setDestinations([]);
     }
   };
 
-  useEffect(() => {
-    getAllContinents();
-    if(vacationId)
-    {
-      getVacationById(vacationId);
+  const findContinentForDestination = async (destinationId, continentsList) => {
+    const targetId = String(destinationId);
+    for (const continent of continentsList) {
+      const dests = await fetchData(`destinations/${continent.id}`);
+      if (dests.some((d) => String(d.id) === targetId)) {
+        return { continentId: String(continent.id), destinations: dests };
+      }
     }
-  }, []);
+    return null;
+  };
 
-  const getVacationById = async (vacationId) => {
-    try {
-      const response = await fetchData(`vacationPackages/${vacationId}`);
-      const cleaned = {
-  ...response,
-  start_date: response.start_date?.substring(0, 10),
-  end_date: response.end_date?.substring(0, 10)
-};
-setFormData(cleaned);
-    } catch (error) {
-      console.error('Error fetching vacation:', error);
-    }
-  }
-  const getAllContinents = async () => {
+  useEffect(() => {
+    const initForm = async () => {
       try {
-        const response = await fetchData('continents');
-        setContinents(response);
-        if (response.length > 0) {
-          const defaultContinentId = response[0].id;
+        const continentsResponse = await fetchData('continents');
+        setContinents(continentsResponse);
+
+        if (vacationId) {
+          const vacation = await fetchData(`vacationPackages/${vacationId}`);
+          let continentId = vacation.continent_id != null ? String(vacation.continent_id) : null;
+          let destinationsList = [];
+
+          if (continentId) {
+            destinationsList = await fetchData(`destinations/${continentId}`);
+          } else {
+            const found = await findContinentForDestination(vacation.destination_id, continentsResponse);
+            if (found) {
+              continentId = found.continentId;
+              destinationsList = found.destinations;
+            }
+          }
+
+          setDestinations(destinationsList);
+          setSelectedContinent(continentId ?? '');
+          setFormData(mapVacationToFormData(vacation));
+        } else if (continentsResponse.length > 0) {
+          const defaultContinentId = String(continentsResponse[0].id);
           setSelectedContinent(defaultContinentId);
           await loadDestinationsForContinent(defaultContinentId);
         }
       } catch (error) {
-        console.error('Error fetching continents:', error);
+        console.error('Error initializing vacation form:', error);
       }
     };
+
+    initForm();
+  }, [vacationId]);
   const handleContinentChange = async (e) => {
     const continentId = e.target.value;
     setSelectedContinent(continentId);
@@ -292,7 +328,7 @@ setFormData(cleaned);
           יבשת:
           <select value={selectedContinent} onChange={handleContinentChange} required>
             {continents.map(c => (
-              <option key={c.id} value={c.id}>{c.continent_name}</option>
+              <option key={c.id} value={String(c.id)}>{c.continent_name}</option>
             ))}
           </select>
         </label>
@@ -301,7 +337,7 @@ setFormData(cleaned);
           מדינה:
           <select name="destination_id" value={formData.destination_id} onChange={handleChange} required >
             {destinations.map(d => (
-              <option key={d.id} value={d.id}>{d.country_name}</option>
+              <option key={d.id} value={String(d.id)}>{d.country_name}</option>
             ))}
           </select>
         </label>

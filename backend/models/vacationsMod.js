@@ -12,8 +12,14 @@ async function getVacationsPackages() {
 }
 async function getVacationPackageById(id) {
   try {
-    const sql = `SELECT * FROM vacation_packages where id=?` ;
-    const [rows] = await connection.query(sql,[id]);
+    const sql = `
+      SELECT vp.*, d.continent_id, d.country_name, c.continent_name
+      FROM vacation_packages vp
+      JOIN destinations d ON vp.destination_id = d.id
+      JOIN continents c ON d.continent_id = c.id
+      WHERE vp.id = ?
+    `;
+    const [rows] = await connection.query(sql, [id]);
     return rows[0];
   }
    catch (error) {

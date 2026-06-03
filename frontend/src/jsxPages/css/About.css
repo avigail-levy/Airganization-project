@@ -1,44 +1,116 @@
 .about-container {
   direction: rtl;
   text-align: right;
-  padding: 2rem;
-  max-width: 900px;
-  margin: auto;
-  background-color: #f8f9fa;
+  max-width: 820px;
+  margin: 2rem auto 3rem;
+  padding: 2.5rem 3rem;
+  background-color: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
   color: #333;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .about-title {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  color: #0d6efd;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.75rem;
+  padding: 0;
+  color: #05986c;
   text-align: center;
+  border-bottom: 2px solid #ecfdf5;
+  padding-bottom: 1rem;
 }
 
 .about-subtitle {
-  font-size: 1.3rem;
-  font-weight: bold;
-  margin-top: 1.5rem;
-  color: #495057;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 1.75rem;
+  margin-bottom: 0.625rem;
+  color: #05986c;
+  padding-right: 0.75rem;
+  border-right: 3px solid #00BFA6;
 }
 
 .about-paragraph {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  margin-bottom: 0.75rem;
+  color: #475569;
 }
 
 .about-list {
-  list-style-type: "✓ ";
-  padding-right: 1rem;
-  font-size: 1.05rem;
-  line-height: 1.8;
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+  line-height: 1.85;
 }
-h1 {
-  text-align: center;
-  margin: 20px 0;
+
+.about-list li {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0.5rem 0.75rem;
+  margin: 0.375rem 0;
+  text-align: right;
+  color: #475569;
+  border-radius: 8px;
+  background-color: #f8fafc;
+}
+
+.about-list li::before {
+  content: "✓ ";
   color: #05986c;
+  font-weight: bold;
+}
+
+.about-container > .about-subtitle:last-of-type {
+  margin-top: 2rem;
+}
+
+.about-container > .about-subtitle:last-of-type + .about-paragraph {
+  margin-top: 0;
+  padding: 1.25rem 1.5rem;
+  background-color: #ecfdf5;
+  border-radius: 12px;
+  border: 1px solid #bbf7d0;
+  line-height: 2;
+}
+
+.about-contact {
+  margin-top: 1.75rem;
+  padding: 1.25rem 1.5rem;
+  background-color: #ecfdf5;
+  border-radius: 12px;
+  border: 1px solid #bbf7d0;
+}
+
+.about-contact .about-paragraph {
+  margin-bottom: 0.5rem;
+}
+
+.about-contact .about-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.about-container a {
+  color: #05986c;
+  font-weight: 600;
+}
+
+.about-container a:hover {
+  color: #047857;
+}
+
+@media (max-width: 640px) {
+  .about-container {
+    margin: 1.25rem 1rem 2rem;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .about-title {
+    font-size: 1.5rem;
+  }
 }
